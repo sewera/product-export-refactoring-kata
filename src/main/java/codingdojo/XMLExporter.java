@@ -1,9 +1,7 @@
 package codingdojo;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.Date;
+import java.text.*;
+import java.util.*;
 
 public class XMLExporter {
 
@@ -87,7 +85,7 @@ public class XMLExporter {
             xml.append("</orderTax>");
             xml.append("</order>");
         }
-        
+
         double totalTax = TaxCalculator.calculateAddedTax(orders);
         xml.append(formatter.format(totalTax));
         xml.append("</orderTax>");
@@ -160,16 +158,16 @@ public class XMLExporter {
                 xml.append(product.getName());
                 xml.append("</product>");
             }
-            
+
             xml.append("</order>");
         }
-        
+
         xml.append("</orderHistory>");
         return xml.toString();
     }
 
     private static String stylistFor(Product product) {
-        return "Celeste Pulchritudo"; // in future we will look up the name of the stylist from the database
+        return "Celeste Pulchritudo"; // in the future, we will look up the name of the stylist from the database
     }
 
 }

@@ -6,6 +6,8 @@ target
 # IDEA
 *.iml
 .idea
+**/out/
+!src/**/out/
 
 # Eclipse
 .settings

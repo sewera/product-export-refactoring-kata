@@ -20,7 +20,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
-    testImplementation("com.approvaltests:approvaltests:18.5.0")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.xmlunit:xmlunit-core:2.9.1")
+    testImplementation("org.xmlunit:xmlunit-assertj3:2.9.1")
+    testImplementation("org.xmlunit:xmlunit-matchers:2.9.1")
 }
 
 group = "org.codingdojo"
@@ -34,10 +37,10 @@ publishing {
     }
 }
 
-tasks.withType<JavaCompile>() {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
-tasks.withType<Javadoc>() {
+tasks.withType<Javadoc> {
     options.encoding = "UTF-8"
 }
