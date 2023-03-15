@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orderTax>
+    <order date='2018-09-01T00:00Z'>
+        <product id='EVENT02'>Makeover</product>
+        <orderTax currency='USD'>57.50</orderTax>
+    </order>
+    57.50
+</orderTax>

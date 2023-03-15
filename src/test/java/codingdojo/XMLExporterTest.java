@@ -8,22 +8,58 @@ import java.util.*;
 import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 
-public class XMLExporterTest {
-    public static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
+class XMLExporterTest {
+    private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
+
+    private static final Product PRODUCT = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
+    private static final Store STORE = new Store("Nordstan", "4189", new Product[]{PRODUCT});
+    private static final StoreEvent STORE_EVENT = new StoreEvent("Makeover", "EVENT02", STORE, new Price(149.99D, "USD"));
+    private static final Order ORDER = new Order("1234", Util.fromIsoDate("2018-09-01T00:00Z"),
+            STORE, new Product[]{STORE_EVENT});
 
     @Test
-    public void testFullExport() {
+    void testFullExport() {
         // given
-        var product = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
-        var store = new Store("Nordstan", "4189", new Product[]{product});
-        var makeover = new StoreEvent("Makeover", "EVENT02", store, new Price(149.99D, "USD"));
-        var order = new Order("1234", Util.fromIsoDate("2018-09-01T00:00Z"),
-                store, new Product[]{makeover});
-
-        var expectedXmlFile = "recentOrder.xml";
+        var expectedXmlFile = "full.xml";
 
         // when
-        var xml = XMLExporter.exportFull(List.of(order));
+        var xml = XMLExporter.exportFull(List.of(ORDER));
+
+        // then
+        assertXmlAgainstFile(xml, expectedXmlFile);
+    }
+
+    @Test
+    void testTaxDetailsExport() {
+        // given
+        var expectedXmlFile = "taxDetails.xml";
+
+        // when
+        var xml = XMLExporter.exportTaxDetails(List.of(ORDER));
+
+        // then
+        assertXmlAgainstFile(xml, expectedXmlFile);
+    }
+
+    @Test
+    void testStoreExport() {
+        // given
+        var expectedXmlFile = "store.xml";
+
+        // when
+        var xml = XMLExporter.exportStore(STORE);
+
+        // then
+        assertXmlAgainstFile(xml, expectedXmlFile);
+    }
+
+    @Test
+    void testHistoryExport() {
+        // given
+        var expectedXmlFile = "history.xml";
+
+        // when
+        var xml = XMLExporter.exportHistory(List.of(ORDER));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);
