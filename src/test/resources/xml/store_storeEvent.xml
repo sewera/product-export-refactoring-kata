@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<store name='Example Store'>
+    <product id='EVENT02' location='Example Store'>
+        <price currency='USD'>149.99</price>
+        Store Event Two
+    </product>
+    <product id='PRODUCT01' weight='1'><price currency='USD'>14.99</price>Product One
+    </product>
+</store>

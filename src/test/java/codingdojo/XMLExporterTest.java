@@ -50,10 +50,23 @@ class XMLExporterTest {
     }
 
     @Test
-    void testStoreExport() {
+    void testStoreExportForStoreWithSingleProduct() {
         // given
-        var store = data.exampleStore();
-        var expected = data.storeReference();
+        var store = data.exampleStoreWithSingleProduct();
+        var expected = data.storeWithSingleProductReference();
+
+        // when
+        var actual = XMLExporter.exportStore(store);
+
+        // then
+        assertXml(actual, expected);
+    }
+
+    @Test
+    void testStoreExportForStoreWithStoreEvent() {
+        // given
+        var store = data.exampleStoreWithStoreEvent();
+        var expected = data.storeWithStoreEventReference();
 
         // when
         var actual = XMLExporter.exportStore(store);

@@ -171,7 +171,7 @@ public class XMLExporter {
     }
 
     private static String stylistFor(Product product) {
-        return "Celeste Pulchritudo"; // in the future, we will look up the name of the stylist from the database
+        return "John Doe"; // in the future, we will look up the name of the stylist from the database
     }
 
 }

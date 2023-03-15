@@ -9,25 +9,36 @@ public final class Dataset {
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
 
     public Product exampleProduct() {
-        return new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
+        return new Product("Product One", "PRODUCT01", 1, new Price(14.99D, "USD"));
     }
 
-    public Store exampleStore() {
-        return new Store("Nordstan", "4189", new Product[]{exampleProduct()});
+    public Store exampleStoreWithSingleProduct() {
+        return new Store("Example Store", "111", new Product[]{exampleProduct()});
+    }
+
+    public Store exampleStoreWithStoreEvent() {
+        var store = exampleStoreWithSingleProduct();
+        storeEventFor(store);
+        return store;
     }
 
     public StoreEvent exampleStoreEvent() {
-        return new StoreEvent("Makeover", "EVENT02", exampleStore(), new Price(149.99D, "USD"));
+        return storeEventFor(exampleStoreWithSingleProduct());
+    }
+
+    private StoreEvent storeEventFor(Store store) {
+        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(149.99D, "USD"));
     }
 
     public List<Order> exampleOrderListWithStoreEvent() {
-        var order = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
-                new Store("Nordstan", "4189", new Product[]{exampleProduct()}), new Product[]{exampleStoreEvent()});
+        var dateAfterTaxChange = DateUtil.fromIsoDate("2018-09-01T00:00Z");
+        var order = new Order("1234", dateAfterTaxChange, exampleStoreWithStoreEvent(), new Product[]{exampleStoreEvent()});
         return List.of(order);
     }
 
     public List<Order> exampleOrderListWithRegularProduct() {
-        var order = new Order("123", DateUtil.fromIsoDate("2017-09-01T00:00Z"), new Store("Nordstan", "4189", new Product[]{new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"))}), new Product[]{new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"))});
+        var dateBeforeTaxChange = DateUtil.fromIsoDate("2017-09-01T00:00Z");
+        var order = new Order("123", dateBeforeTaxChange, exampleStoreWithSingleProduct(), new Product[]{exampleProduct()});
         return List.of(order);
     }
 
@@ -39,8 +50,12 @@ public final class Dataset {
         return fromFileInXmlDir("history.xml");
     }
 
-    public Source storeReference() {
-        return fromFileInXmlDir("store.xml");
+    public Source storeWithSingleProductReference() {
+        return fromFileInXmlDir("store_singleProduct.xml");
+    }
+
+    public Source storeWithStoreEventReference() {
+        return fromFileInXmlDir("store_storeEvent.xml");
     }
 
     public Source taxDetailsWithStoreEventReference() {
