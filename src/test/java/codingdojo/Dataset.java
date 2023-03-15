@@ -8,26 +8,14 @@ import java.util.*;
 public final class Dataset {
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
 
-    public Product exampleProduct() {
-        return new Product("Product One", "PRODUCT01", 1, new Price(14.99D, "USD"));
-    }
-
-    public Store exampleStoreWithSingleProduct() {
-        return new Store("Example Store", "111", new Product[]{exampleProduct()});
-    }
-
     public Store exampleStoreWithStoreEvent() {
         var store = exampleStoreWithSingleProduct();
         storeEventFor(store);
         return store;
     }
 
-    public StoreEvent exampleStoreEvent() {
-        return storeEventFor(exampleStoreWithSingleProduct());
-    }
-
-    private StoreEvent storeEventFor(Store store) {
-        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(149.99D, "USD"));
+    public Store exampleStoreWithSingleProduct() {
+        return new Store("Example Store", "111", new Product[]{exampleProduct()});
     }
 
     public List<Order> exampleOrderListWithStoreEvent() {
@@ -40,6 +28,18 @@ public final class Dataset {
         var dateBeforeTaxChange = DateUtil.fromIsoDate("2017-09-01T00:00Z");
         var order = new Order("123", dateBeforeTaxChange, exampleStoreWithSingleProduct(), new Product[]{exampleProduct()});
         return List.of(order);
+    }
+
+    private StoreEvent exampleStoreEvent() {
+        return storeEventFor(exampleStoreWithSingleProduct());
+    }
+
+    private StoreEvent storeEventFor(Store store) {
+        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(149.99D, "USD"));
+    }
+
+    private Product exampleProduct() {
+        return new Product("Product One", "PRODUCT01", 1, new Price(14.99D, "USD"));
     }
 
     public Source allOrdersReference() {
