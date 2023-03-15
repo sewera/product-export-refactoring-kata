@@ -14,8 +14,9 @@ class XMLExporterTest {
     private static final Product PRODUCT = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
     private static final Store STORE = new Store("Nordstan", "4189", new Product[]{PRODUCT});
     private static final StoreEvent STORE_EVENT = new StoreEvent("Makeover", "EVENT02", STORE, new Price(149.99D, "USD"));
-    private static final Order ORDER = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
+    private static final Order ORDER_WITH_STORE_EVENT = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
             STORE, new Product[]{STORE_EVENT});
+    private static final Order ORDER_WITH_REGULAR_PRODUCT = new Order("123", DateUtil.fromIsoDate("2017-09-01T00:00Z"), STORE, new Product[]{PRODUCT});
 
     @Test
     void testFullExport() {
@@ -23,19 +24,31 @@ class XMLExporterTest {
         var expectedXmlFile = "full.xml";
 
         // when
-        var xml = XMLExporter.exportFull(List.of(ORDER));
+        var xml = XMLExporter.exportFull(List.of(ORDER_WITH_STORE_EVENT));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);
     }
 
     @Test
-    void testTaxDetailsExport() {
+    void testTaxDetailsExportForStoreEvent() {
         // given
-        var expectedXmlFile = "taxDetails.xml";
+        var expectedXmlFile = "taxDetails_storeEvent.xml";
 
         // when
-        var xml = XMLExporter.exportTaxDetails(List.of(ORDER));
+        var xml = XMLExporter.exportTaxDetails(List.of(ORDER_WITH_STORE_EVENT));
+
+        // then
+        assertXmlAgainstFile(xml, expectedXmlFile);
+    }
+
+    @Test
+    void testTaxDetailsExportForRegularProduct() {
+        // given
+        var expectedXmlFile = "taxDetails_regularProduct.xml";
+
+        // when
+        var xml = XMLExporter.exportTaxDetails(List.of(ORDER_WITH_REGULAR_PRODUCT));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);
@@ -59,7 +72,7 @@ class XMLExporterTest {
         var expectedXmlFile = "history.xml";
 
         // when
-        var xml = XMLExporter.exportHistory(List.of(ORDER), DateUtil.fromIsoDate("2023-03-31T12:35Z"));
+        var xml = XMLExporter.exportHistory(List.of(ORDER_WITH_STORE_EVENT), DateUtil.fromIsoDate("2023-03-31T12:35Z"));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);
