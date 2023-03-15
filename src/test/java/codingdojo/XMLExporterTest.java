@@ -1,13 +1,13 @@
 package codingdojo;
 
 import org.junit.jupiter.api.*;
-import org.xmlunit.builder.*;
+
+import javax.xml.transform.*;
 
 import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 
 class XMLExporterTest {
-    private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
     private static final Dataset data = new Dataset();
 
     @Test
@@ -20,46 +20,46 @@ class XMLExporterTest {
         var actual = XMLExporter.exportFull(orders);
 
         // then
-        assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
+        assertXml(actual, expected);
     }
 
     @Test
     void testTaxDetailsExportForStoreEvent() {
         // given
         var orders = data.exampleOrderListWithStoreEvent();
-        var expectedXmlFile = "taxDetails_storeEvent.xml";
+        var expected = data.taxDetailsWithStoreEventReference();
 
         // when
-        var xml = XMLExporter.exportTaxDetails(orders);
+        var actual = XMLExporter.exportTaxDetails(orders);
 
         // then
-        assertXmlAgainstFile(xml, expectedXmlFile);
+        assertXml(actual, expected);
     }
 
     @Test
     void testTaxDetailsExportForRegularProduct() {
         // given
         var orders = data.exampleOrderListWithRegularProduct();
-        var expectedXmlFile = "taxDetails_regularProduct.xml";
+        var expected = data.taxDetailsWithRegularProductReference();
 
         // when
-        var xml = XMLExporter.exportTaxDetails(orders);
+        var actual = XMLExporter.exportTaxDetails(orders);
 
         // then
-        assertXmlAgainstFile(xml, expectedXmlFile);
+        assertXml(actual, expected);
     }
 
     @Test
     void testStoreExport() {
         // given
         var store = data.exampleStore();
-        var expectedXmlFile = "store.xml";
+        var expected = data.storeReference();
 
         // when
-        var xml = XMLExporter.exportStore(store);
+        var actual = XMLExporter.exportStore(store);
 
         // then
-        assertXmlAgainstFile(xml, expectedXmlFile);
+        assertXml(actual, expected);
     }
 
     @Test
@@ -67,19 +67,16 @@ class XMLExporterTest {
         // given
         var orders = data.exampleOrderListWithStoreEvent();
         var date = DateUtil.fromIsoDate("2023-03-31T12:35Z");
-        var expectedXmlFile = "history.xml";
+        var expected = data.historyReference();
 
         // when
-        var xml = XMLExporter.exportHistory(orders, date);
+        var actual = XMLExporter.exportHistory(orders, date);
 
         // then
-        assertXmlAgainstFile(xml, expectedXmlFile);
+        assertXml(actual, expected);
     }
 
-    private static void assertXmlAgainstFile(String actualXml, String expectedXmlFile) {
-        var expected = Input.fromFile(TEST_XML_DIRECTORY + expectedXmlFile).build();
-        var actual = Input.fromString(actualXml).build();
-
+    private static void assertXml(String actual, Source expected) {
         assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
     }
 }
