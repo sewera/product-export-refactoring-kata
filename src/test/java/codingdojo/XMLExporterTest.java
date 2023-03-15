@@ -59,7 +59,7 @@ class XMLExporterTest {
         var expectedXmlFile = "history.xml";
 
         // when
-        var xml = XMLExporter.exportHistory(List.of(ORDER));
+        var xml = XMLExporter.exportHistory(List.of(ORDER), Util.fromIsoDate("2023-03-31T12:35Z"));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);

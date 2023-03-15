@@ -133,12 +133,16 @@ public class XMLExporter {
     }
 
     public static String exportHistory(Collection<Order> orders) {
+        Date now = new Date();
+        return exportHistory(orders, now);
+    }
+
+    static String exportHistory(Collection<Order> orders, Date date) {
         StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         xml.append("<orderHistory");
         xml.append(" createdAt='");
-        Date now = new Date();
-        xml.append(Util.toIsoDate(now));
+        xml.append(Util.toIsoDate(date));
         xml.append("'");
         xml.append(">");
         for (Order order : orders) {
