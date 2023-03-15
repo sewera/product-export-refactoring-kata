@@ -3,6 +3,7 @@ package codingdojo;
 import org.xmlunit.builder.*;
 
 import javax.xml.transform.*;
+import java.util.*;
 
 public final class Dataset {
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
@@ -26,12 +27,12 @@ public final class Dataset {
         return STORE_EVENT;
     }
 
-    public Order exampleOrderWithStoreEvent() {
-        return ORDER_WITH_STORE_EVENT;
+    public List<Order> exampleOrderListWithStoreEvent() {
+        return List.of(ORDER_WITH_STORE_EVENT);
     }
 
-    public Order exampleOrderWithRegularProduct() {
-        return ORDER_WITH_REGULAR_PRODUCT;
+    public List<Order> exampleOrderListWithRegularProduct() {
+        return List.of(ORDER_WITH_REGULAR_PRODUCT);
     }
 
     public Source allOrdersReference() {
