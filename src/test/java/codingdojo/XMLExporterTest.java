@@ -21,7 +21,7 @@ class XMLExporterTest {
     @Test
     void testFullExport() {
         // given
-        var expectedXmlFile = "full.xml";
+        var expectedXmlFile = "allOrders.xml";
 
         // when
         var xml = XMLExporter.exportFull(List.of(ORDER_WITH_STORE_EVENT));
