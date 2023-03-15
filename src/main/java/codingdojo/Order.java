@@ -1,17 +1,13 @@
 package codingdojo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 public class Order {
 
     private final String id;
     private final Date date;
-    private Collection<Product> products = new ArrayList<>();
-    private Store store;
+    private final Collection<Product> products = new ArrayList<>();
+    private final Store store;
 
     public Order(String id, Date date, Store store, Product[] products) {
         this.id = id;
@@ -21,9 +17,9 @@ public class Order {
     }
 
     public double totalDollars() {
-        return products.stream(). //
-                mapToDouble(product -> product.getPrice().getAmountInCurrency("USD")). //
-                sum();
+        return products.stream()
+                .mapToDouble(product -> product.getPrice().getAmountInCurrency("USD"))
+                .sum();
     }
 
     @Override
