@@ -8,31 +8,27 @@ import java.util.*;
 public final class Dataset {
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
 
-    private static final Product PRODUCT = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
-    private static final Store STORE = new Store("Nordstan", "4189", new Product[]{PRODUCT});
-    private static final StoreEvent STORE_EVENT = new StoreEvent("Makeover", "EVENT02", STORE, new Price(149.99D, "USD"));
-    private static final Order ORDER_WITH_STORE_EVENT = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
-            STORE, new Product[]{STORE_EVENT});
-    private static final Order ORDER_WITH_REGULAR_PRODUCT = new Order("123", DateUtil.fromIsoDate("2017-09-01T00:00Z"), STORE, new Product[]{PRODUCT});
-
     public Product exampleProduct() {
-        return PRODUCT;
+        return new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
     }
 
     public Store exampleStore() {
-        return STORE;
+        return new Store("Nordstan", "4189", new Product[]{exampleProduct()});
     }
 
     public StoreEvent exampleStoreEvent() {
-        return STORE_EVENT;
+        return new StoreEvent("Makeover", "EVENT02", exampleStore(), new Price(149.99D, "USD"));
     }
 
     public List<Order> exampleOrderListWithStoreEvent() {
-        return List.of(ORDER_WITH_STORE_EVENT);
+        var order = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
+                new Store("Nordstan", "4189", new Product[]{exampleProduct()}), new Product[]{exampleStoreEvent()});
+        return List.of(order);
     }
 
     public List<Order> exampleOrderListWithRegularProduct() {
-        return List.of(ORDER_WITH_REGULAR_PRODUCT);
+        var order = new Order("123", DateUtil.fromIsoDate("2017-09-01T00:00Z"), new Store("Nordstan", "4189", new Product[]{new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"))}), new Product[]{new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"))});
+        return List.of(order);
     }
 
     public Source allOrdersReference() {
