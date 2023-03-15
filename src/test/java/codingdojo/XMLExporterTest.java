@@ -10,6 +10,7 @@ import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 class XMLExporterTest {
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
+    private static final Dataset data = new Dataset();
 
     private static final Product PRODUCT = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
     private static final Store STORE = new Store("Nordstan", "4189", new Product[]{PRODUCT});
@@ -21,13 +22,13 @@ class XMLExporterTest {
     @Test
     void testFullExport() {
         // given
-        var expectedXmlFile = "allOrders.xml";
+        var expected = data.allOrdersReference();
 
         // when
-        var xml = XMLExporter.exportFull(List.of(ORDER_WITH_STORE_EVENT));
+        var actual = XMLExporter.exportFull(List.of(ORDER_WITH_STORE_EVENT));
 
         // then
-        assertXmlAgainstFile(xml, expectedXmlFile);
+        assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
     }
 
     @Test
