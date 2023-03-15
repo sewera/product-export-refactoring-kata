@@ -4,7 +4,6 @@ import java.text.*;
 import java.util.*;
 
 public class XMLExporter {
-
     public static String exportFull(Collection<Order> orders) {
         StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -93,7 +92,7 @@ public class XMLExporter {
     }
 
     public static String exportStore(Store store) {
-        StringBuffer xml = new StringBuffer();
+        StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
         xml.append("<store");
@@ -132,6 +131,7 @@ public class XMLExporter {
         return xml.toString();
     }
 
+    @SuppressWarnings("unused") // public interface
     public static String exportHistory(Collection<Order> orders) {
         Date now = new Date();
         return exportHistory(orders, now);
@@ -170,8 +170,8 @@ public class XMLExporter {
         return xml.toString();
     }
 
-    private static String stylistFor(Product product) {
-        return "John Doe"; // in the future, we will look up the name of the stylist from the database
+    private static String stylistFor(Product ignoredProduct) {
+        // In the future, we will look up the name of the stylist from the database
+        return "John Doe";
     }
-
 }
