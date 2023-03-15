@@ -5,9 +5,14 @@ target
 
 # IDEA
 *.iml
-.idea
 **/out/
 !src/**/out/
+
+# Based on https://jasonstitt.com/gitignore-whitelisting-patterns
+.idea/*
+!.idea/**/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
 
 # Eclipse
 .settings
