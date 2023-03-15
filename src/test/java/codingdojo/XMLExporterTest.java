@@ -14,7 +14,7 @@ class XMLExporterTest {
     private static final Product PRODUCT = new Product("Cherry Bloom", "LIPSTICK01", 30, new Price(14.99D, "USD"));
     private static final Store STORE = new Store("Nordstan", "4189", new Product[]{PRODUCT});
     private static final StoreEvent STORE_EVENT = new StoreEvent("Makeover", "EVENT02", STORE, new Price(149.99D, "USD"));
-    private static final Order ORDER = new Order("1234", Util.fromIsoDate("2018-09-01T00:00Z"),
+    private static final Order ORDER = new Order("1234", DateUtil.fromIsoDate("2018-09-01T00:00Z"),
             STORE, new Product[]{STORE_EVENT});
 
     @Test
@@ -59,7 +59,7 @@ class XMLExporterTest {
         var expectedXmlFile = "history.xml";
 
         // when
-        var xml = XMLExporter.exportHistory(List.of(ORDER), Util.fromIsoDate("2023-03-31T12:35Z"));
+        var xml = XMLExporter.exportHistory(List.of(ORDER), DateUtil.fromIsoDate("2023-03-31T12:35Z"));
 
         // then
         assertXmlAgainstFile(xml, expectedXmlFile);

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-class Util {
+class DateUtil {
 
     public static Date fromIsoDate(String datetime) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
