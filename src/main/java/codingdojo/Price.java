@@ -9,7 +9,7 @@ public class Price {
     private final double amount;
     private final String currencyCode;
 
-    public String getCurrency() {
+    public String getCurrencyCode() {
         return currencyCode;
     }
 
