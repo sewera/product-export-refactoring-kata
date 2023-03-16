@@ -3,7 +3,6 @@ package codingdojo;
 import java.util.*;
 
 public class TaxCalculator {
-
     public static double calculateAddedTax(Collection<Order> orders) {
         double tax = 0.0;
         for (Order order : orders) {
