@@ -1,26 +1,16 @@
 package codingdojo;
 
-public class Price {
+import lombok.*;
 
+@Getter
+@ToString
+@AllArgsConstructor
+public class Price {
     private final double amount;
     private final String currencyCode;
 
-    public Price(double amount, String currencyCode) {
-        this.amount = amount;
-        this.currencyCode = currencyCode;
-    }
-
-    @Override
-    public String toString() {
-        return "Price{" + amount + '}';
-    }
-
     public String getCurrency() {
         return currencyCode;
-    }
-
-    public double getAmount() {
-        return amount;
     }
 
     public double getAmountInCurrency(String currencyCode) {
