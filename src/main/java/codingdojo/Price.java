@@ -1,14 +1,6 @@
 package codingdojo;
 
-import lombok.*;
-
-@Getter
-@ToString
-@AllArgsConstructor
-public class Price {
-    private final double amount;
-    private final String currencyCode;
-
+public record Price(double amount, String currencyCode) {
     public double getAmountInCurrency(String currencyCode) {
         if (this.currencyCode.equals(currencyCode))
             return amount;

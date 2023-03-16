@@ -33,9 +33,9 @@ public class XMLExporter {
                 xml.append(">");
                 xml.append("<price");
                 xml.append(" currency='");
-                xml.append(product.getPrice().getCurrencyCode());
+                xml.append(product.getPrice().currencyCode());
                 xml.append("'>");
-                xml.append(product.getPrice().getAmount());
+                xml.append(product.getPrice().amount());
                 xml.append("</price>");
                 xml.append(product.getName());
                 xml.append("</product>");
@@ -118,9 +118,9 @@ public class XMLExporter {
             xml.append(">");
             xml.append("<price");
             xml.append(" currency='");
-            xml.append(product.getPrice().getCurrencyCode());
+            xml.append(product.getPrice().currencyCode());
             xml.append("'>");
-            xml.append(product.getPrice().getAmount());
+            xml.append(product.getPrice().amount());
             xml.append("</price>");
             xml.append(product.getName());
             xml.append("</product>");
