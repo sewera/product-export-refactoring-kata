@@ -1,13 +1,15 @@
 package codingdojo;
 
+import lombok.*;
+
 import java.util.*;
 
+@ToString
 public class Order {
-
     private final String id;
     private final Date date;
-    private final Collection<Product> products = new ArrayList<>();
     private final Store store;
+    private final Collection<Product> products = new ArrayList<>();
 
     public Order(String id, Date date, Store store, Product[] products) {
         this.id = id;
@@ -20,15 +22,6 @@ public class Order {
         return products.stream()
                 .mapToDouble(product -> product.getPrice().getAmountInCurrency("USD"))
                 .sum();
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" + id + '}';
-    }
-
-    public void saveToDatabase() {
-        throw new UnsupportedOperationException("missing from this exercise - shouldn't be called from a unit test");
     }
 
     public String getId() {
@@ -51,4 +44,8 @@ public class Order {
         return store;
     }
 
+    @SuppressWarnings("unused")
+    public void saveToDatabase() {
+        throw new UnsupportedOperationException("missing from this exercise - shouldn't be called from a unit test");
+    }
 }
