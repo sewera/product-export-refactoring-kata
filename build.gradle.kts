@@ -17,9 +17,16 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.26")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.xmlunit:xmlunit-core:2.9.1")
     testImplementation("org.xmlunit:xmlunit-assertj3:2.9.1")
