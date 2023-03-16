@@ -9,10 +9,6 @@ public class Price {
     private final double amount;
     private final String currencyCode;
 
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
     public double getAmountInCurrency(String currencyCode) {
         if (this.currencyCode.equals(currencyCode))
             return amount;
