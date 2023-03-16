@@ -1,11 +1,15 @@
 package codingdojo;
 
+import lombok.*;
+
 import java.util.*;
 
 /**
  * Represents a physical Store where you can go and buy
  * products and attend events.
  */
+@Getter
+@ToString
 public class Store {
     private final Map<String, Product> itemsInStock = new HashMap<>();
     private final String name;
@@ -25,19 +29,6 @@ public class Store {
 
     public void addStoreEvent(StoreEvent storeEvent) {
         this.itemsInStock.put(storeEvent.getName(), storeEvent);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Store{" + name + '}';
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Collection<Product> getStock() {
