@@ -4,16 +4,15 @@ import java.text.*;
 import java.util.*;
 
 class DateUtil {
-    private static final String TIME_ZONE = "UTC";
+    private static final TimeZone TIME_ZONE = TimeZone.getTimeZone("UTC");
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm'Z'";
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN);
 
     public static Date fromIsoDate(String datetime) {
-        TimeZone tz = TimeZone.getTimeZone(TIME_ZONE);
-        DateFormat df = new SimpleDateFormat(DATE_PATTERN);
-        df.setTimeZone(tz);
+        DATE_FORMAT.setTimeZone(TIME_ZONE);
 
         try {
-            return df.parse(datetime);
+            return DATE_FORMAT.parse(datetime);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -21,9 +20,7 @@ class DateUtil {
     }
 
     public static String toIsoDate(Date date) {
-        TimeZone tz = TimeZone.getTimeZone(TIME_ZONE);
-        DateFormat df = new SimpleDateFormat(DATE_PATTERN);
-        df.setTimeZone(tz);
-        return df.format(date);
+        DATE_FORMAT.setTimeZone(TIME_ZONE);
+        return DATE_FORMAT.format(date);
     }
 }
