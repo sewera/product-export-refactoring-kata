@@ -5,16 +5,15 @@ import lombok.*;
 import java.util.*;
 
 @ToString
+@AllArgsConstructor
 public class Order {
     private final String id;
     private final Date date;
     private final Store store;
-    private final Collection<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public Order(String id, Date date, Store store, Product[] products) {
-        this.id = id;
-        this.date = date;
-        this.store = store;
+        this(id, date, store);
         addProducts(products);
     }
 
@@ -28,8 +27,8 @@ public class Order {
         return id;
     }
 
-    public Collection<Product> getProducts() {
-        return Collections.unmodifiableCollection(products);
+    public List<Product> getProducts() {
+        return List.copyOf(products);
     }
 
     public Date getDate() {
