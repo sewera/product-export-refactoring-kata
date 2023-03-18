@@ -6,12 +6,12 @@ public class TaxCalculator {
     public static double calculateAddedTax(Collection<Order> orders) {
         double tax = 0.0;
         for (Order order : orders) {
-            if (order.getDate().before(DateUtil.fromIsoDate("2018-01-01T00:00Z")))
+            if (order.date().before(DateUtil.fromIsoDate("2018-01-01T00:00Z")))
                 tax += 10;
             else
                 tax += 20;
 
-            for (Product product : order.getProducts())
+            for (Product product : order.products())
                 if (product.isEvent())
                     tax += product.getPrice().getAmountInCurrency("USD") * 0.25;
                 else

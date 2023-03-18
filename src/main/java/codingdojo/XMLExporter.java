@@ -11,9 +11,9 @@ public class XMLExporter {
         for (Order order : orders) {
             xml.append("<order");
             xml.append(" id='");
-            xml.append(order.getId());
+            xml.append(order.id());
             xml.append("'>");
-            for (Product product : order.getProducts()) {
+            for (Product product : order.products()) {
                 xml.append("<product");
                 xml.append(" id='");
                 xml.append(product.getId());
@@ -56,11 +56,11 @@ public class XMLExporter {
         for (Order order : orders) {
             xml.append("<order");
             xml.append(" date='");
-            xml.append(DateUtil.toIsoDate(order.getDate()));
+            xml.append(DateUtil.toIsoDate(order.date()));
             xml.append("'");
             xml.append(">");
             double tax = 0D;
-            for (Product product : order.getProducts()) {
+            for (Product product : order.products()) {
                 xml.append("<product");
                 xml.append(" id='");
                 xml.append(product.getId());
@@ -76,7 +76,7 @@ public class XMLExporter {
             }
 
             xml.append("<orderTax currency='USD'>");
-            if (order.getDate().before(DateUtil.fromIsoDate("2018-01-01T00:00Z")))
+            if (order.date().before(DateUtil.fromIsoDate("2018-01-01T00:00Z")))
                 tax += 10;
             else
                 tax += 20;
@@ -148,12 +148,12 @@ public class XMLExporter {
         for (Order order : orders) {
             xml.append("<order");
             xml.append(" date='");
-            xml.append(DateUtil.toIsoDate(order.getDate()));
+            xml.append(DateUtil.toIsoDate(order.date()));
             xml.append("'");
             xml.append(" totalDollars='");
             xml.append(order.totalDollars());
             xml.append("'>");
-            for (Product product : order.getProducts()) {
+            for (Product product : order.products()) {
                 xml.append("<product");
                 xml.append(" id='");
                 xml.append(product.getId());

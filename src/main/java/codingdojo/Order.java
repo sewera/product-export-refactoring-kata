@@ -1,18 +1,8 @@
 package codingdojo;
 
-import lombok.*;
-
 import java.util.*;
 
-@Getter
-@ToString
-@AllArgsConstructor
-public class Order {
-    private final String id;
-    private final Date date;
-    private final Store store;
-    private final Product[] products;
-
+public record Order(String id, Date date, Store store, Product[] products) {
     public double totalDollars() {
         return Arrays.stream(products)
                 .mapToDouble(product -> product.getPrice().getAmountInCurrency("USD"))
