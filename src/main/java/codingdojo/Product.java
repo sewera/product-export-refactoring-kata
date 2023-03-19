@@ -11,6 +11,10 @@ public class Product {
     protected final int weight;
     protected final Price price;
 
+    public double getPriceInCurrency(Price.Currency currency) {
+        return price.getAmountInCurrency(currency);
+    }
+
     public boolean isEvent() {
         return false;
     }

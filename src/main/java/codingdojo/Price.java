@@ -8,4 +8,13 @@ public record Price(double amount, String currencyCode) {
             throw new UnsupportedOperationException("shouldn't call this from a unit test, it will do a slow db lookup");
         }
     }
+
+    public double getAmountInCurrency(Currency currency) {
+        return getAmountInCurrency(currency.toString());
+    }
+
+    public enum Currency {
+        USD,
+        UNKNOWN
+    }
 }
