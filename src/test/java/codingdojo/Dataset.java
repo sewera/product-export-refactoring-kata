@@ -6,6 +6,8 @@ import org.xmlunit.builder.*;
 import javax.xml.transform.*;
 import java.util.*;
 
+import static codingdojo.Price.Currency.USD;
+
 public final class Dataset {
     public static final Date DATE_AFTER_TAX_CHANGE = DateUtil.fromIsoDate("2018-09-01T00:00Z");
     public static final Date DATE_BEFORE_TAX_CHANGE = DateUtil.fromIsoDate("2017-09-01T00:00Z");
@@ -60,11 +62,11 @@ public final class Dataset {
     }
 
     private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {
-        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(price, "USD"));
+        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(price, USD));
     }
 
     private static Product productWithPrice(double price) {
-        return new Product("Product One", "PRODUCT01", 1, new Price(price, "USD"));
+        return new Product("Product One", "PRODUCT01", 1, new Price(price, USD));
     }
 
     public Source allOrdersReference() {
