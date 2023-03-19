@@ -21,7 +21,7 @@ public class Product {
         return 0.175;
     }
 
-    public double getTax() {
+    public double getTaxInDollars() {
         return getPriceInCurrency(USD) * getTaxRate();
     }
 

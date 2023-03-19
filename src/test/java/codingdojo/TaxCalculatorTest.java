@@ -43,7 +43,7 @@ class TaxCalculatorTest {
                 .createOrder();
 
         // when
-        var actual = TaxCalculator.calculateAddedTax(List.of(order));
+        var actual = TaxCalculator.calculateAddedTaxInDollars(List.of(order));
 
         // then
         assertThat(actual).isEqualTo(expectedTaxFor100Price);
@@ -55,7 +55,7 @@ class TaxCalculatorTest {
         var expected = 0.0;
 
         // when
-        var actual = TaxCalculator.calculateAddedTax(List.of());
+        var actual = TaxCalculator.calculateAddedTaxInDollars(List.of());
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -89,7 +89,7 @@ class TaxCalculatorTest {
         var expected = 337.5;
 
         // when
-        var actual = TaxCalculator.calculateAddedTax(List.of(regularProductBeforeTaxChange,
+        var actual = TaxCalculator.calculateAddedTaxInDollars(List.of(regularProductBeforeTaxChange,
                 regularProductAfterTaxChange, storeEventBeforeTaxChange, storeEventAfterTaxChange));
 
         // then

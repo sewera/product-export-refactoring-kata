@@ -87,7 +87,7 @@ public class XMLExporter {
             xml.append("</order>");
         }
 
-        double totalTax = TaxCalculator.calculateAddedTax(orders);
+        double totalTax = TaxCalculator.calculateAddedTaxInDollars(orders);
         xml.append(formatter.format(totalTax));
         xml.append("</orderTax>");
         return xml.toString();

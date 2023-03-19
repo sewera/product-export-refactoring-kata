@@ -13,13 +13,13 @@ public record Order(String id, Date date, Store store, Product[] products) {
                 .sum();
     }
 
-    public double getTax() {
-        return initialTax() + Arrays.stream(products)
-                .mapToDouble(Product::getTax)
+    public double getTaxInDollars() {
+        return initialTaxInDollars() + Arrays.stream(products)
+                .mapToDouble(Product::getTaxInDollars)
                 .sum();
     }
 
-    public double initialTax() {
+    private double initialTaxInDollars() {
         return date.before(TAX_CHANGE) ? 10.0 : 20.0;
     }
 
