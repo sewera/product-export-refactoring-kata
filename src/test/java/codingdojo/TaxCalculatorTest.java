@@ -50,6 +50,18 @@ class TaxCalculatorTest {
     }
 
     @Test
+    void testTaxForNoOrders() {
+        // given
+        var expected = 0.0;
+
+        // when
+        var actual = TaxCalculator.calculateAddedTax(List.of());
+
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     void testTaxForOrderWithMultipleProducts() {
         // given
         var regularProductBeforeTaxChange = Dataset.Orders.builder()

@@ -6,12 +6,10 @@ public class TaxCalculator {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
     public static double calculateAddedTax(Collection<Order> orders) {
-        var tax = 0.0;
-        for (var order : orders) {
-            tax += taxForOrder(order);
-        }
-
-        return tax;
+        return orders.stream()
+                .map(TaxCalculator::taxForOrder)
+                .reduce(Double::sum)
+                .orElse(0.0);
     }
 
     private static double taxForOrder(Order order) {
