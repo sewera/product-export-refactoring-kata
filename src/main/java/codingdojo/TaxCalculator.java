@@ -8,15 +8,16 @@ public class TaxCalculator {
     public static double calculateAddedTax(Collection<Order> orders) {
         double tax = 0.0;
         for (Order order : orders) {
-            if (order.date().before(TAX_CHANGE))
-                tax += 10;
-            else
-                tax += 20;
+            tax += orderTaxFor(order);
 
             for (Product product : order.products())
                 tax += product.getTax();
         }
 
         return tax;
+    }
+
+    private static double orderTaxFor(Order order) {
+        return order.date().before(TAX_CHANGE) ? 10.0 : 20.0;
     }
 }
