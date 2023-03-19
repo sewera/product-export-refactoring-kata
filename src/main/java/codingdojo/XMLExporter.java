@@ -3,8 +3,6 @@ package codingdojo;
 import java.text.*;
 import java.util.*;
 
-import static codingdojo.Price.Currency.USD;
-
 public class XMLExporter {
     public static String exportFull(Collection<Order> orders) {
         StringBuilder xml = new StringBuilder();
@@ -70,11 +68,8 @@ public class XMLExporter {
                 xml.append(">");
                 xml.append(product.getName());
                 xml.append("</product>");
-                if (product.isEvent())
-                    tax += product.getPriceInCurrency(USD) * 0.25;
-                else
-                    tax += product.getPriceInCurrency(USD) * 0.175;
 
+                tax += product.getTaxInDollars();
             }
 
             xml.append("<orderTax currency='USD'>");
