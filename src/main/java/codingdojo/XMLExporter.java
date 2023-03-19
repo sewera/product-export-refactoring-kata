@@ -59,7 +59,6 @@ public class XMLExporter {
             xml.append(DateUtil.toIsoDate(order.date()));
             xml.append("'");
             xml.append(">");
-            double tax = 0D;
             for (Product product : order.products()) {
                 xml.append("<product");
                 xml.append(" id='");
@@ -68,16 +67,10 @@ public class XMLExporter {
                 xml.append(">");
                 xml.append(product.getName());
                 xml.append("</product>");
-
-                tax += product.getTaxInDollars();
             }
 
             xml.append("<orderTax currency='USD'>");
-            if (order.date().before(DateUtil.fromIsoDate("2018-01-01T00:00Z")))
-                tax += 10;
-            else
-                tax += 20;
-            xml.append(formatter.format(tax));
+            xml.append(formatter.format(order.getTaxInDollars()));
             xml.append("</orderTax>");
             xml.append("</order>");
         }
