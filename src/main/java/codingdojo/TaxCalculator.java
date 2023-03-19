@@ -7,9 +7,8 @@ public class TaxCalculator {
 
     public static double calculateAddedTax(Collection<Order> orders) {
         return orders.stream()
-                .map(TaxCalculator::taxForOrder)
-                .reduce(Double::sum)
-                .orElse(0.0);
+                .mapToDouble(TaxCalculator::taxForOrder)
+                .sum();
     }
 
     private static double taxForOrder(Order order) {
