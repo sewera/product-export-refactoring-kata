@@ -17,7 +17,7 @@ public class TaxCalculator {
 
             for (Product product : order.products())
                 if (product.isEvent())
-                    tax += product.getPriceInCurrency(USD) * 0.25;
+                    tax += product.getTax();
                 else
                     tax += product.getPriceInCurrency(USD) * 0.175;
         }

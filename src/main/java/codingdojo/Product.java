@@ -2,6 +2,8 @@ package codingdojo;
 
 import lombok.*;
 
+import static codingdojo.Price.Currency.USD;
+
 @Getter
 @ToString
 @AllArgsConstructor
@@ -13,6 +15,14 @@ public class Product {
 
     public double getPriceInCurrency(Price.Currency currency) {
         return price.getAmountInCurrency(currency);
+    }
+
+    public double getTaxRate() {
+        return 0.25;
+    }
+
+    public double getTax() {
+        return getPriceInCurrency(USD) * getTaxRate();
     }
 
     public boolean isEvent() {
