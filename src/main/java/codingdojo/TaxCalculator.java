@@ -2,8 +2,6 @@ package codingdojo;
 
 import java.util.*;
 
-import static codingdojo.Price.Currency.USD;
-
 public class TaxCalculator {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
@@ -16,10 +14,7 @@ public class TaxCalculator {
                 tax += 20;
 
             for (Product product : order.products())
-                if (product.isEvent())
-                    tax += product.getTax();
-                else
-                    tax += product.getPriceInCurrency(USD) * 0.175;
+                tax += product.getTax();
         }
 
         return tax;

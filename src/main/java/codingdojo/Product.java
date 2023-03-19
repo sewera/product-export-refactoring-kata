@@ -18,7 +18,7 @@ public class Product {
     }
 
     public double getTaxRate() {
-        return 0.25;
+        return 0.175;
     }
 
     public double getTax() {

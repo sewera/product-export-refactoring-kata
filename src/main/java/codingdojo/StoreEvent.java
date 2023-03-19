@@ -18,6 +18,11 @@ public class StoreEvent extends Product {
     }
 
     @Override
+    public double getTaxRate() {
+        return 0.25;
+    }
+
+    @Override
     public boolean isEvent() {
         return true;
     }
