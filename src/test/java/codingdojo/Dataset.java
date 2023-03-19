@@ -1,45 +1,70 @@
 package codingdojo;
 
+import lombok.*;
 import org.xmlunit.builder.*;
 
 import javax.xml.transform.*;
 import java.util.*;
 
 public final class Dataset {
+    public static final Date DATE_AFTER_TAX_CHANGE = DateUtil.fromIsoDate("2018-09-01T00:00Z");
+    public static final Date DATE_BEFORE_TAX_CHANGE = DateUtil.fromIsoDate("2017-09-01T00:00Z");
     private static final String TEST_XML_DIRECTORY = "src/test/resources/xml/";
 
     public Store exampleStoreWithStoreEvent() {
-        var store = exampleStoreWithSingleProduct();
-        storeEventFor(store);
+        var store = createStore();
+        store.addStockedItems(storeEventForStoreWithPrice(store, 149.99));
         return store;
     }
 
     public Store exampleStoreWithSingleProduct() {
-        return new Store("Example Store", "111", new Product[]{exampleProduct()});
+        var store = createStore();
+        store.addStockedItems(productWithPrice(14.99));
+        return store;
     }
 
     public List<Order> exampleOrderListWithStoreEvent() {
-        var dateAfterTaxChange = DateUtil.fromIsoDate("2018-09-01T00:00Z");
-        var order = new Order("1234", dateAfterTaxChange, exampleStoreWithStoreEvent(), new Product[]{exampleStoreEvent()});
+        var order = Orders.builder()
+                .withPrice(149.99)
+                .withEvent(true)
+                .withDate(DATE_AFTER_TAX_CHANGE)
+                .build()
+                .createOrder();
         return List.of(order);
     }
 
     public List<Order> exampleOrderListWithRegularProduct() {
-        var dateBeforeTaxChange = DateUtil.fromIsoDate("2017-09-01T00:00Z");
-        var order = new Order("123", dateBeforeTaxChange, exampleStoreWithSingleProduct(), new Product[]{exampleProduct()});
+        var order = Orders.builder()
+                .withPrice(14.99)
+                .withDate(DATE_BEFORE_TAX_CHANGE)
+                .build()
+                .createOrder();
         return List.of(order);
     }
 
-    private StoreEvent exampleStoreEvent() {
-        return storeEventFor(exampleStoreWithSingleProduct());
+    @Builder(setterPrefix = "with")
+    public record Orders(double price, boolean event, Date date) {
+        Order createOrder() {
+            var id = "123";
+            var store = createStore();
+            Product product = event ?
+                    storeEventForStoreWithPrice(store, price) :
+                    productWithPrice(price);
+            store.addStockedItems(product);
+            return new Order(id, date, store, new Product[]{product});
+        }
     }
 
-    private StoreEvent storeEventFor(Store store) {
-        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(149.99D, "USD"));
+    private static Store createStore() {
+        return new Store("Example Store", "111", new Product[]{});
     }
 
-    private Product exampleProduct() {
-        return new Product("Product One", "PRODUCT01", 1, new Price(14.99D, "USD"));
+    private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {
+        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(price, "USD"));
+    }
+
+    private static Product productWithPrice(double price) {
+        return new Product("Product One", "PRODUCT01", 1, new Price(price, "USD"));
     }
 
     public Source allOrdersReference() {
