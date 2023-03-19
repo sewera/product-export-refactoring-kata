@@ -75,7 +75,7 @@ public class XMLExporter {
             xml.append("</order>");
         }
 
-        double totalTax = TaxCalculator.calculateAddedTaxInDollars(orders);
+        double totalTax = calculateAddedTaxInDollars(orders);
         xml.append(formatter.format(totalTax));
         xml.append("</orderTax>");
         return xml.toString();
@@ -163,5 +163,11 @@ public class XMLExporter {
     private static String stylistFor(Product ignoredProduct) {
         // In the future, we will look up the name of the stylist from the database
         return "John Doe";
+    }
+
+    private static double calculateAddedTaxInDollars(Collection<Order> orders) {
+        return orders.stream()
+                .mapToDouble(Order::getTaxInDollars)
+                .sum();
     }
 }
