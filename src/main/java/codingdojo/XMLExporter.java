@@ -58,26 +58,8 @@ public class XMLExporter {
         xml.append(store.getName());
         xml.append("'");
         xml.append(">");
-        for (Product product : store.getStock()) {
-            xml.append("<product");
-            xml.append(" id='");
-            xml.append(product.getId());
-            xml.append("'");
-            if (product.isEvent()) {
-                xml.append(" location='");
-                xml.append(store.getName());
-                xml.append("'");
-            } else {
-                xml.append(" weight='");
-                xml.append(product.getWeight());
-                xml.append("'");
-            }
-
-            xml.append(">");
-            product.getPrice().writeFullXml(xml);
-            xml.append(product.getName());
-            xml.append("</product>");
-        }
+        for (Product product : store.getStock())
+            product.writeStockXml(xml);
 
         xml.append("</store>");
 

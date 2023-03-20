@@ -37,6 +37,10 @@ public class Product {
         xml.append("'");
     }
 
+    public void writeStockXml(StringBuilder xml) {
+        writeFullXml(xml);
+    }
+
     public void writeBasicXml(StringBuilder xml) {
         xml.append("<product");
         xml.append(" id='");

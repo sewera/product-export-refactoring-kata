@@ -9,9 +9,19 @@ import lombok.*;
  */
 @ToString
 public class StoreEvent extends Product {
+    private final Store location;
+
     public StoreEvent(String name, String id, Store location, Price price) {
         super(name, id, 0, price);
+        this.location = location;
         setLocation(location);
+    }
+
+    @Override
+    protected void writeDetailsForFullXml(StringBuilder xml) {
+        xml.append(" stylist='");
+        xml.append(getStylist());
+        xml.append("'");
     }
 
     private static String getStylist() {
@@ -20,9 +30,13 @@ public class StoreEvent extends Product {
     }
 
     @Override
-    protected void writeDetailsForFullXml(StringBuilder xml) {
-        xml.append(" stylist='");
-        xml.append(getStylist());
+    public void writeStockXml(StringBuilder xml) {
+        writeDetailedXml(xml, this::writeDetailsForStockXml);
+    }
+
+    private void writeDetailsForStockXml(StringBuilder xml) {
+        xml.append(" location='");
+        xml.append(location.getName());
         xml.append("'");
     }
 
