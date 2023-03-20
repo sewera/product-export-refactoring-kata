@@ -2,6 +2,8 @@ package codingdojo;
 
 import lombok.*;
 
+import java.util.function.*;
+
 import static codingdojo.Price.Currency.USD;
 
 @Getter
@@ -14,11 +16,15 @@ public class Product {
     protected final Price price;
 
     public void writeFullXml(StringBuilder xml) {
+        writeDetailedXml(xml, this::writeDetailsForFullXml);
+    }
+
+    protected void writeDetailedXml(StringBuilder xml, Consumer<StringBuilder> details) {
         xml.append("<product");
         xml.append(" id='");
         xml.append(id);
         xml.append("'");
-        writeDetailsForFullXml(xml);
+        details.accept(xml);
         xml.append(">");
         price.writeFullXml(xml);
         xml.append(name);
