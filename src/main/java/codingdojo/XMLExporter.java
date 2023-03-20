@@ -13,28 +13,8 @@ public class XMLExporter {
             xml.append(" id='");
             xml.append(order.id());
             xml.append("'>");
-            for (Product product : order.products()) {
-                xml.append("<product");
-                xml.append(" id='");
-                xml.append(product.getId());
-                xml.append("'");
-                if (product.isEvent()) {
-                    xml.append(" stylist='");
-                    xml.append(stylistFor(product));
-                    xml.append("'");
-                }
-
-                if (product.getWeight() > 0) {
-                    xml.append(" weight='");
-                    xml.append(product.getWeight());
-                    xml.append("'");
-                }
-
-                xml.append(">");
-                product.getPrice().writeFullXml(xml);
-                xml.append(product.getName());
-                xml.append("</product>");
-            }
+            for (Product product : order.products())
+                product.writeFullXml(xml);
 
             xml.append("</order>");
         }

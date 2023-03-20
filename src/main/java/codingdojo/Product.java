@@ -13,6 +13,27 @@ public class Product {
     protected final int weight;
     protected final Price price;
 
+    public void writeFullXml(StringBuilder xml) {
+        xml.append("<product");
+        xml.append(" id='");
+        xml.append(id);
+        xml.append("'");
+        if (isEvent()) {
+            xml.append(" stylist='");
+            xml.append(getStylist());
+            xml.append("'");
+        }
+        if (weight > 0) {
+            xml.append(" weight='");
+            xml.append(weight);
+            xml.append("'");
+        }
+        xml.append(">");
+        price.writeFullXml(xml);
+        xml.append(name);
+        xml.append("</product>");
+    }
+
     public void writeBasicXml(StringBuilder xml) {
         xml.append("<product");
         xml.append(" id='");
