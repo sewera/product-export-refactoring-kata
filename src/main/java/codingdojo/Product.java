@@ -18,6 +18,14 @@ public class Product {
         xml.append(" id='");
         xml.append(id);
         xml.append("'");
+        writeDetailsForFullXml(xml);
+        xml.append(">");
+        price.writeFullXml(xml);
+        xml.append(name);
+        xml.append("</product>");
+    }
+
+    protected void writeDetailsForFullXml(StringBuilder xml) {
         if (isEvent()) {
             xml.append(" stylist='");
             xml.append(getStylist());
@@ -28,10 +36,6 @@ public class Product {
             xml.append(weight);
             xml.append("'");
         }
-        xml.append(">");
-        price.writeFullXml(xml);
-        xml.append(name);
-        xml.append("</product>");
     }
 
     public void writeBasicXml(StringBuilder xml) {
