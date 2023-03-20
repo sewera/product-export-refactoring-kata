@@ -14,6 +14,18 @@ public class StoreEvent extends Product {
         setLocation(location);
     }
 
+    private static String getStylist() {
+        // In the future, we will look up the name of the stylist from the database
+        return "John Doe";
+    }
+
+    @Override
+    protected void writeDetailsForFullXml(StringBuilder xml) {
+        xml.append(" stylist='");
+        xml.append(getStylist());
+        xml.append("'");
+    }
+
     public void setLocation(Store store) {
         store.addStoreEvent(this);
     }

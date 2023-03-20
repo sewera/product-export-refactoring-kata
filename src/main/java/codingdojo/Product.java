@@ -26,16 +26,9 @@ public class Product {
     }
 
     protected void writeDetailsForFullXml(StringBuilder xml) {
-        if (isEvent()) {
-            xml.append(" stylist='");
-            xml.append(getStylist());
-            xml.append("'");
-        }
-        if (weight > 0) {
-            xml.append(" weight='");
-            xml.append(weight);
-            xml.append("'");
-        }
+        xml.append(" weight='");
+        xml.append(weight);
+        xml.append("'");
     }
 
     public void writeBasicXml(StringBuilder xml) {
@@ -62,11 +55,6 @@ public class Product {
 
     public boolean isEvent() {
         return false;
-    }
-
-    private static String getStylist() {
-        // In the future, we will look up the name of the stylist from the database
-        return "John Doe";
     }
 
     @SuppressWarnings("unused")
