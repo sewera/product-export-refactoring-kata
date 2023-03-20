@@ -13,6 +13,16 @@ public class Product {
     protected final int weight;
     protected final Price price;
 
+    public void writeBasicXml(StringBuilder xml) {
+        xml.append("<product");
+        xml.append(" id='");
+        xml.append(id);
+        xml.append("'");
+        xml.append(">");
+        xml.append(name);
+        xml.append("</product>");
+    }
+
     public double getPriceInCurrency(Price.Currency currency) {
         return price.getAmountInCurrency(currency);
     }
@@ -27,6 +37,11 @@ public class Product {
 
     public boolean isEvent() {
         return false;
+    }
+
+    private static String getStylist() {
+        // In the future, we will look up the name of the stylist from the database
+        return "John Doe";
     }
 
     @SuppressWarnings("unused")

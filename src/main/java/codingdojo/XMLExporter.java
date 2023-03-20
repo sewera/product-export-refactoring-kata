@@ -59,15 +59,8 @@ public class XMLExporter {
             xml.append(DateUtil.toIsoDate(order.date()));
             xml.append("'");
             xml.append(">");
-            for (Product product : order.products()) {
-                xml.append("<product");
-                xml.append(" id='");
-                xml.append(product.getId());
-                xml.append("'");
-                xml.append(">");
-                xml.append(product.getName());
-                xml.append("</product>");
-            }
+            for (Product product : order.products())
+                product.writeBasicXml(xml);
 
             xml.append("<orderTax currency='USD'>");
             xml.append(formatter.format(order.getTaxInDollars()));
@@ -143,15 +136,8 @@ public class XMLExporter {
             xml.append(" totalDollars='");
             xml.append(order.totalDollars());
             xml.append("'>");
-            for (Product product : order.products()) {
-                xml.append("<product");
-                xml.append(" id='");
-                xml.append(product.getId());
-                xml.append("'");
-                xml.append(">");
-                xml.append(product.getName());
-                xml.append("</product>");
-            }
+            for (Product product : order.products())
+                product.writeBasicXml(xml);
 
             xml.append("</order>");
         }
