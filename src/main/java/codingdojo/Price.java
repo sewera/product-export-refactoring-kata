@@ -1,6 +1,14 @@
 package codingdojo;
 
 public record Price(double amount, Currency currency) {
+    public void writeFullXml(StringBuilder xml) {
+        xml.append("<price");
+        xml.append(" currency='");
+        xml.append(currency.toString());
+        xml.append("'>");
+        xml.append(amount);
+        xml.append("</price>");
+    }
 
     public double getAmountInCurrency(Currency currency) {
         if (this.currency.equals(currency))
