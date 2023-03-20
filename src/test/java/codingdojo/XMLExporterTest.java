@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 
 import javax.xml.transform.*;
 
+import static java.util.Collections.emptyList;
 import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 
@@ -84,6 +85,18 @@ class XMLExporterTest {
 
         // when
         var actual = XMLExporter.exportHistory(orders, date);
+
+        // then
+        assertXml(actual, expected);
+    }
+
+    @Test
+    void testEmptyFullExport() {
+        // given
+        var expected = data.noOrdersReference();
+
+        // when
+        var actual = XMLExporter.exportFull(emptyList());
 
         // then
         assertXml(actual, expected);

@@ -93,6 +93,10 @@ public final class Dataset {
         return fromFileInXmlDir("taxDetails_regularProduct.xml");
     }
 
+    public Source noOrdersReference() {
+        return fromFileInXmlDir("noOrders.xml");
+    }
+
     private Source fromFileInXmlDir(String filename) {
         return Input.fromFile(TEST_XML_DIRECTORY + filename).build();
     }
