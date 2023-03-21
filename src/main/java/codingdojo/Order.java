@@ -26,10 +26,21 @@ public record Order(String id, Date date, Store store, Product[] products) {
         xml.append("'");
         xml.append(">");
         Arrays.stream(products).forEach(product -> product.writeBasicXml(xml));
-
         xml.append("<orderTax currency='USD'>");
         xml.append(formatter.format(getTaxInDollars()));
         xml.append("</orderTax>");
+        xml.append("</order>");
+    }
+
+    public void writeHistoryXml(StringBuilder xml) {
+        xml.append("<order");
+        xml.append(" date='");
+        xml.append(DateUtil.toIsoDate(date));
+        xml.append("'");
+        xml.append(" totalDollars='");
+        xml.append(totalDollars());
+        xml.append("'>");
+        Arrays.stream(products).forEach(product -> product.writeBasicXml(xml));
         xml.append("</order>");
     }
 

@@ -60,19 +60,8 @@ public class XMLExporter {
         xml.append(DateUtil.toIsoDate(date));
         xml.append("'");
         xml.append(">");
-        for (Order order : orders) {
-            xml.append("<order");
-            xml.append(" date='");
-            xml.append(DateUtil.toIsoDate(order.date()));
-            xml.append("'");
-            xml.append(" totalDollars='");
-            xml.append(order.totalDollars());
-            xml.append("'>");
-            for (Product product : order.products())
-                product.writeBasicXml(xml);
-
-            xml.append("</order>");
-        }
+        for (Order order : orders)
+            order.writeHistoryXml(xml);
 
         xml.append("</orderHistory>");
         return xml.toString();
