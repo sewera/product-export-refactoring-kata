@@ -7,6 +7,15 @@ import static codingdojo.Price.Currency.USD;
 public record Order(String id, Date date, Store store, Product[] products) {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
+    public void writeFullXml(StringBuilder xml) {
+        xml.append("<order");
+        xml.append(" id='");
+        xml.append(id);
+        xml.append("'>");
+        Arrays.stream(products).forEach(product -> product.writeFullXml(xml));
+        xml.append("</order>");
+    }
+
     public double totalDollars() {
         return Arrays.stream(products)
                 .mapToDouble(product -> product.getPriceInCurrency(USD))

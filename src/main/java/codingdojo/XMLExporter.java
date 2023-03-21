@@ -8,16 +8,8 @@ public class XMLExporter {
         StringBuilder xml = new StringBuilder();
         writeXmlHeader(xml);
         xml.append("<orders>");
-        for (Order order : orders) {
-            xml.append("<order");
-            xml.append(" id='");
-            xml.append(order.id());
-            xml.append("'>");
-            for (Product product : order.products())
-                product.writeFullXml(xml);
-
-            xml.append("</order>");
-        }
+        for (Order order : orders)
+            order.writeFullXml(xml);
 
         xml.append("</orders>");
         return xml.toString();
