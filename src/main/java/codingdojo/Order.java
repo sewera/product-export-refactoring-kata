@@ -1,5 +1,6 @@
 package codingdojo;
 
+import java.text.*;
 import java.util.*;
 
 import static codingdojo.Price.Currency.USD;
@@ -13,6 +14,22 @@ public record Order(String id, Date date, Store store, Product[] products) {
         xml.append(id);
         xml.append("'>");
         Arrays.stream(products).forEach(product -> product.writeFullXml(xml));
+        xml.append("</order>");
+    }
+
+    public void writeTaxDetailsXml(StringBuilder xml) {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+
+        xml.append("<order");
+        xml.append(" date='");
+        xml.append(DateUtil.toIsoDate(date));
+        xml.append("'");
+        xml.append(">");
+        Arrays.stream(products).forEach(product -> product.writeBasicXml(xml));
+
+        xml.append("<orderTax currency='USD'>");
+        xml.append(formatter.format(getTaxInDollars()));
+        xml.append("</orderTax>");
         xml.append("</order>");
     }
 

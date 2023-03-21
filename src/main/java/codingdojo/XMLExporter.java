@@ -20,20 +20,8 @@ public class XMLExporter {
         StringBuilder xml = new StringBuilder();
         writeXmlHeader(xml);
         xml.append("<orderTax>");
-        for (Order order : orders) {
-            xml.append("<order");
-            xml.append(" date='");
-            xml.append(DateUtil.toIsoDate(order.date()));
-            xml.append("'");
-            xml.append(">");
-            for (Product product : order.products())
-                product.writeBasicXml(xml);
-
-            xml.append("<orderTax currency='USD'>");
-            xml.append(formatter.format(order.getTaxInDollars()));
-            xml.append("</orderTax>");
-            xml.append("</order>");
-        }
+        for (Order order : orders)
+            order.writeTaxDetailsXml(xml);
 
         double totalTax = calculateAddedTaxInDollars(orders);
         xml.append(formatter.format(totalTax));
