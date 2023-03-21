@@ -98,11 +98,6 @@ public class XMLExporter {
         return xml.toString();
     }
 
-    private static String stylistFor(Product ignoredProduct) {
-        // In the future, we will look up the name of the stylist from the database
-        return "John Doe";
-    }
-
     private static double calculateAddedTaxInDollars(Collection<Order> orders) {
         return orders.stream()
                 .mapToDouble(Order::getTaxInDollars)
