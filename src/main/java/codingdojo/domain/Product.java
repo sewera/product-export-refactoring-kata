@@ -32,15 +32,7 @@ public class Product {
     }
 
     public void writeStockXml(StringBuilder xml) {
-        xml.append("<product");
-        xml.append(" id='");
-        xml.append(id);
-        xml.append("'");
-        writeDetailsForFullXml(xml);
-        xml.append(">");
-        price.writeFullXml(xml);
-        xml.append(name);
-        xml.append("</product>");
+        writeFullXml(xml);
     }
 
     public void writeBasicXml(StringBuilder xml) {
