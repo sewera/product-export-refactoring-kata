@@ -9,7 +9,7 @@ import static codingdojo.Dataset.DATE_BEFORE_TAX_CHANGE;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LedgerTest {
+class AccountTest {
     @Test
     void testTax_MultipleOrders() {
         // given
@@ -37,7 +37,7 @@ class LedgerTest {
                 .createOrder();
         var orders = List.of(regularProductBeforeTaxChange,
                 regularProductAfterTaxChange, storeEventBeforeTaxChange, storeEventAfterTaxChange);
-        var ledger = new Ledger(orders);
+        var ledger = new Account(orders);
 
         var expected = 337.5;
 
@@ -51,7 +51,7 @@ class LedgerTest {
     @Test
     void testTax_NoOrders() {
         // given
-        var ledger = new Ledger(emptyList());
+        var ledger = new Account(emptyList());
         var expected = 0.0;
 
         // when
