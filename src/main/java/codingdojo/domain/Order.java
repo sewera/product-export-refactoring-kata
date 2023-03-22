@@ -13,7 +13,7 @@ public record Order(String id, Date date, Store store, Product[] products) {
         xml.append(fullXml());
     }
 
-    private XmlTag fullXml() {
+    public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("order")
                 .withParameter(XmlParameter.of("id", id))
@@ -24,30 +24,38 @@ public record Order(String id, Date date, Store store, Product[] products) {
     }
 
     public void writeTaxDetailsXml(StringBuilder xml) {
-        NumberFormat formatter = new DecimalFormat("#0.00");
+        xml.append(taxDetailsXml());
+    }
 
-        xml.append("<order");
-        xml.append(" date='");
-        xml.append(DateUtil.toIsoDate(date));
-        xml.append("'");
-        xml.append(">");
-        Arrays.stream(products).forEach(product -> product.writeBasicXml(xml));
-        xml.append("<orderTax currency='USD'>");
-        xml.append(formatter.format(getTaxInDollars()));
-        xml.append("</orderTax>");
-        xml.append("</order>");
+    public XmlTag taxDetailsXml() {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        return XmlTag.builder()
+                .withName("order")
+                .withParameter(XmlParameter.of("date", DateUtil.toIsoDate(date)))
+                .withChildren(Arrays.stream(products)
+                        .map(Product::basicXml)
+                        .toList())
+                .withChild(XmlTag.builder()
+                        .withName("orderTax")
+                        .withParameter(XmlParameter.of("currency", "USD"))
+                        .withValue(formatter.format(getTaxInDollars()))
+                        .build())
+                .build();
     }
 
     public void writeHistoryXml(StringBuilder xml) {
-        xml.append("<order");
-        xml.append(" date='");
-        xml.append(DateUtil.toIsoDate(date));
-        xml.append("'");
-        xml.append(" totalDollars='");
-        xml.append(totalDollars());
-        xml.append("'>");
-        Arrays.stream(products).forEach(product -> product.writeBasicXml(xml));
-        xml.append("</order>");
+        xml.append(historyXml());
+    }
+
+    public XmlTag historyXml() {
+        return XmlTag.builder()
+                .withName("order")
+                .withParameter(XmlParameter.of("date", DateUtil.toIsoDate(date)))
+                .withParameter(XmlParameter.of("totalDollars", String.valueOf(totalDollars())))
+                .withChildren(Arrays.stream(products)
+                        .map(Product::basicXml)
+                        .toList())
+                .build();
     }
 
     double totalDollars() {

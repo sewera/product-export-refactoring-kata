@@ -32,11 +32,7 @@ public class Product {
         return fullXml();
     }
 
-    public void writeBasicXml(StringBuilder xml) {
-        xml.append(basicXml());
-    }
-
-    private XmlTag basicXml() {
+    public XmlTag basicXml() {
         return XmlTag.builder()
                 .withName("product")
                 .withParameter(XmlParameter.of("id", id))
