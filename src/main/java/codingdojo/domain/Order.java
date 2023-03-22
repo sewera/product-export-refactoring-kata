@@ -9,10 +9,6 @@ import java.util.*;
 public record Order(String id, Date date, Store store, Product[] products) {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
-    public void writeFullXml(StringBuilder xml) {
-        xml.append(fullXml());
-    }
-
     public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("order")
@@ -21,10 +17,6 @@ public record Order(String id, Date date, Store store, Product[] products) {
                         .map(Product::fullXml)
                         .toList())
                 .build();
-    }
-
-    public void writeTaxDetailsXml(StringBuilder xml) {
-        xml.append(taxDetailsXml());
     }
 
     public XmlTag taxDetailsXml() {
@@ -41,10 +33,6 @@ public record Order(String id, Date date, Store store, Product[] products) {
                         .withValue(formatter.format(getTaxInDollars()))
                         .build())
                 .build();
-    }
-
-    public void writeHistoryXml(StringBuilder xml) {
-        xml.append(historyXml());
     }
 
     public XmlTag historyXml() {
