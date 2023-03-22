@@ -3,10 +3,6 @@ package codingdojo.domain;
 import codingdojo.xml.*;
 
 public record Price(double amount, Currency currency) {
-    public void writeFullXml(StringBuilder xml) {
-        xml.append(fullXml().toString());
-    }
-
     public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("price")
