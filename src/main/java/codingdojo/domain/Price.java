@@ -1,13 +1,15 @@
 package codingdojo.domain;
 
+import codingdojo.xml.*;
+
 public record Price(double amount, Currency currency) {
     public void writeFullXml(StringBuilder xml) {
-        xml.append("<price");
-        xml.append(" currency='");
-        xml.append(currency.toString());
-        xml.append("'>");
-        xml.append(amount);
-        xml.append("</price>");
+        var tag = XmlTag.builder()
+                .withName("price")
+                .withParameter(XmlParameter.of("currency", currency.toString()))
+                .withValue(String.valueOf(amount))
+                .build();
+        xml.append(tag.toString());
     }
 
     public double getAmountInCurrency(Currency currency) {
