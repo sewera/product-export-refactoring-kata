@@ -10,10 +10,9 @@ import codingdojo.xml.*;
 public class StoreEvent extends Product {
     private final Store location;
 
-    public StoreEvent(String name, String id, Store location, Money price) {
+    public StoreEvent(String name, String id, Money price, Store location) {
         super(name, id, price);
         this.location = location;
-        setLocation(location);
     }
 
     @Override
@@ -30,18 +29,14 @@ public class StoreEvent extends Product {
                 .build();
     }
 
+    @Override
+    protected double taxRate() {
+        return 0.25;
+    }
+
     @SuppressWarnings("SameReturnValue")
     private static String getStylist() {
         // In the future, we will look up the name of the stylist from the database
         return "John Doe";
-    }
-
-    public void setLocation(Store store) {
-        store.addStockedItems(this);
-    }
-
-    @Override
-    public double taxRate() {
-        return 0.25;
     }
 }

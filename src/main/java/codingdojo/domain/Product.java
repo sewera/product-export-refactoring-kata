@@ -14,12 +14,6 @@ public abstract class Product {
 
     public abstract XmlTag fullXml();
 
-    protected XmlTag xmlWithPrice() {
-        return basicXml().toBuilder()
-                .withChild(price.fullXml("price"))
-                .build();
-    }
-
     public abstract XmlTag stockXml();
 
     public XmlTag basicXml() {
@@ -27,6 +21,12 @@ public abstract class Product {
                 .withName("product")
                 .withParameter(XmlParameter.of("id", id))
                 .withValue(name)
+                .build();
+    }
+
+    protected XmlTag xmlWithPrice() {
+        return basicXml().toBuilder()
+                .withChild(price.fullXml("price"))
                 .build();
     }
 

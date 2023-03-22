@@ -57,7 +57,7 @@ public final class Order {
         return totalPrice().plainAmountInCurrency(USD);
     }
 
-    Money totalPrice() {
+    private Money totalPrice() {
         return products.stream()
                 .map(Product::getPrice)
                 .reduce(Money::sum)

@@ -65,7 +65,7 @@ public final class Dataset {
     }
 
     private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {
-        return new StoreEvent("Store Event Two", "EVENT02", store, Money.dollars(price));
+        return new StoreEvent("Store Event Two", "EVENT02", Money.dollars(price), store);
     }
 
     private static Product productWithPrice(double price) {
