@@ -51,13 +51,13 @@ public record Order(String id, Date date, Store store, List<Product> products) {
 
     double totalDollars() {
         return products.stream()
-                .mapToDouble(Product::getPriceInDollars)
+                .mapToDouble(Product::priceInDollars)
                 .sum();
     }
 
     double taxInDollars() {
         return initialTaxInDollars() + products.stream()
-                .mapToDouble(Product::getTaxInDollars)
+                .mapToDouble(Product::taxInDollars)
                 .sum();
     }
 

@@ -13,7 +13,7 @@ public class StoreEvent extends Product {
     private final Store location;
 
     public StoreEvent(String name, String id, Store location, Price price) {
-        super(name, id, 0, price);
+        super(name, id, price);
         this.location = location;
         setLocation(location);
     }
@@ -39,11 +39,11 @@ public class StoreEvent extends Product {
     }
 
     public void setLocation(Store store) {
-        store.addStoreEvent(this);
+        store.addStockedItems(this);
     }
 
     @Override
-    public double getTaxRate() {
+    public double taxRate() {
         return 0.25;
     }
 }

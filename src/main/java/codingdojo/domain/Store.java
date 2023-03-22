@@ -36,10 +36,6 @@ public class Store {
         itemsInStock.addAll(Arrays.asList(items));
     }
 
-    public void addStoreEvent(StoreEvent storeEvent) {
-        itemsInStock.add(storeEvent);
-    }
-
     @SuppressWarnings("unused")
     public void saveToDatabase() {
         throw new UnsupportedOperationException("missing from this exercise - shouldn't be called from a unit test");

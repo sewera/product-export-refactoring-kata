@@ -68,7 +68,7 @@ public final class Dataset {
     }
 
     private static Product productWithPrice(double price) {
-        return new Product("Product One", "PRODUCT01", 1, new Price(price, USD));
+        return new RegularProduct("Product One", "PRODUCT01", new Price(price, USD), 1);
     }
 
     public Source allOrdersReference() {

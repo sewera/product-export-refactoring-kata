@@ -4,21 +4,15 @@ import codingdojo.xml.*;
 import lombok.*;
 
 import static codingdojo.domain.Price.Currency.USD;
+import static lombok.AccessLevel.PROTECTED;
 
-@Getter
-@ToString
-@AllArgsConstructor
-public class Product {
+@AllArgsConstructor(access = PROTECTED)
+public abstract class Product {
     protected final String name;
     protected final String id;
-    protected final int weight;
     protected final Price price;
 
-    public XmlTag fullXml() {
-        return xmlWithPrice().toBuilder()
-                .withParameter(XmlParameter.of("weight", String.valueOf(weight)))
-                .build();
-    }
+    public abstract XmlTag fullXml();
 
     protected XmlTag xmlWithPrice() {
         return basicXml().toBuilder()
@@ -26,9 +20,7 @@ public class Product {
                 .build();
     }
 
-    public XmlTag stockXml() {
-        return fullXml();
-    }
+    public abstract XmlTag stockXml();
 
     public XmlTag basicXml() {
         return XmlTag.builder()
@@ -38,16 +30,14 @@ public class Product {
                 .build();
     }
 
-    double getPriceInDollars() {
+    double priceInDollars() {
         return price.getAmountInCurrency(USD);
     }
 
-    protected double getTaxRate() {
-        return 0.175;
-    }
+    protected abstract double taxRate();
 
-    double getTaxInDollars() {
-        return getPriceInDollars() * getTaxRate();
+    double taxInDollars() {
+        return priceInDollars() * taxRate();
     }
 
     @SuppressWarnings("unused")
