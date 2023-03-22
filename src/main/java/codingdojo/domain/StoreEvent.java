@@ -19,9 +19,10 @@ public class StoreEvent extends Product {
     }
 
     @Override
-    protected void writeDetailsForFullXml(StringBuilder xml) {
+    protected XmlParameter writeDetailsForFullXml(StringBuilder xml) {
         var parameter = XmlParameter.of("stylist", getStylist());
         xml.append(parameter);
+        return parameter;
     }
 
     private static String getStylist() {

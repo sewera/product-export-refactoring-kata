@@ -26,9 +26,10 @@ public class Product {
         xml.append("</product>");
     }
 
-    protected void writeDetailsForFullXml(StringBuilder xml) {
+    protected XmlParameter writeDetailsForFullXml(StringBuilder xml) {
         var parameter = XmlParameter.of("weight", String.valueOf(weight));
         xml.append(parameter);
+        return parameter;
     }
 
     public void writeStockXml(StringBuilder xml) {
