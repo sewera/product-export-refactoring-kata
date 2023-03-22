@@ -8,7 +8,7 @@ import lombok.*;
 public class RegularProduct extends Product {
     private final int weight;
 
-    public RegularProduct(String name, String id, Price price, int weight) {
+    public RegularProduct(String name, String id, Money price, int weight) {
         super(name, id, price);
         this.weight = weight;
     }

@@ -12,7 +12,7 @@ import lombok.*;
 public class StoreEvent extends Product {
     private final Store location;
 
-    public StoreEvent(String name, String id, Store location, Price price) {
+    public StoreEvent(String name, String id, Store location, Money price) {
         super(name, id, price);
         this.location = location;
         setLocation(location);

@@ -3,7 +3,6 @@ package codingdojo.domain;
 import codingdojo.*;
 import codingdojo.xml.*;
 
-import java.text.*;
 import java.util.*;
 
 public record Order(String id, Date date, List<Product> products) {
@@ -20,16 +19,11 @@ public record Order(String id, Date date, List<Product> products) {
     }
 
     public XmlTag taxDetailsXml() {
-        NumberFormat formatter = new DecimalFormat("#0.00");
         return xmlWithDate().toBuilder()
                 .withChildren(products.stream()
                         .map(Product::basicXml)
                         .toList())
-                .withChild(XmlTag.builder()
-                        .withName("orderTax")
-                        .withParameter(XmlParameter.of("currency", "USD"))
-                        .withValue(formatter.format(taxInDollars()))
-                        .build())
+                .withChild(taxInDollars().fullXml("orderTax"))
                 .build();
     }
 
@@ -55,10 +49,10 @@ public record Order(String id, Date date, List<Product> products) {
                 .sum();
     }
 
-    double taxInDollars() {
-        return initialTaxInDollars() + products.stream()
+    Money taxInDollars() {
+        return Money.dollars(initialTaxInDollars() + products.stream()
                 .mapToDouble(Product::taxInDollars)
-                .sum();
+                .sum());
     }
 
     private double initialTaxInDollars() {

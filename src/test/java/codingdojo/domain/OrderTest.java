@@ -42,11 +42,12 @@ class OrderTest {
                 .withDate(date)
                 .build()
                 .createOrder();
+        var expected = Money.dollars(expectedTaxFor100Price);
 
         // when
         var actual = order.taxInDollars();
 
         // then
-        assertThat(actual).isEqualTo(expectedTaxFor100Price);
+        assertThat(actual).isEqualTo(expected);
     }
 }

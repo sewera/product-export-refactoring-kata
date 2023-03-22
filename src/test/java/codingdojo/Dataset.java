@@ -7,7 +7,6 @@ import org.xmlunit.builder.*;
 import javax.xml.transform.*;
 import java.util.*;
 
-import static codingdojo.domain.Price.Currency.USD;
 import static java.util.Collections.emptyList;
 
 public final class Dataset {
@@ -64,11 +63,11 @@ public final class Dataset {
     }
 
     private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {
-        return new StoreEvent("Store Event Two", "EVENT02", store, new Price(price, USD));
+        return new StoreEvent("Store Event Two", "EVENT02", store, Money.dollars(price));
     }
 
     private static Product productWithPrice(double price) {
-        return new RegularProduct("Product One", "PRODUCT01", new Price(price, USD), 1);
+        return new RegularProduct("Product One", "PRODUCT01", Money.dollars(price), 1);
     }
 
     public Source allOrdersReference() {

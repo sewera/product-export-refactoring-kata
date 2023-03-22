@@ -38,12 +38,12 @@ class AccountTest {
                 .createOrder();
         var orders = List.of(regularProductBeforeTaxChange,
                 regularProductAfterTaxChange, storeEventBeforeTaxChange, storeEventAfterTaxChange);
-        var ledger = Account.of(orders);
+        var account = Account.of(orders);
 
-        var expected = 337.5;
+        var expected = Money.dollars(337.5);
 
         // when
-        var actual = ledger.getTaxInDollars();
+        var actual = account.getTaxInDollars();
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -53,7 +53,7 @@ class AccountTest {
     void testTax_NoOrders() {
         // given
         var ledger = Account.of(emptyList());
-        var expected = 0.0;
+        var expected = Money.dollars(0.0);
 
         // when
         var actual = ledger.getTaxInDollars();

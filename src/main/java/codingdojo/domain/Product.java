@@ -3,20 +3,20 @@ package codingdojo.domain;
 import codingdojo.xml.*;
 import lombok.*;
 
-import static codingdojo.domain.Price.Currency.USD;
+import static codingdojo.domain.Money.Currency.USD;
 import static lombok.AccessLevel.PROTECTED;
 
 @AllArgsConstructor(access = PROTECTED)
 public abstract class Product {
     protected final String name;
     protected final String id;
-    protected final Price price;
+    protected final Money price;
 
     public abstract XmlTag fullXml();
 
     protected XmlTag xmlWithPrice() {
         return basicXml().toBuilder()
-                .withChild(price.fullXml())
+                .withChild(price.fullXml("price"))
                 .build();
     }
 
