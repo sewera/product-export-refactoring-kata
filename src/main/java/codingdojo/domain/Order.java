@@ -6,14 +6,14 @@ import codingdojo.xml.*;
 import java.text.*;
 import java.util.*;
 
-public record Order(String id, Date date, Store store, Product[] products) {
+public record Order(String id, Date date, Store store, List<Product> products) {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
     public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("order")
                 .withParameter(XmlParameter.of("id", id))
-                .withChildren(Arrays.stream(products)
+                .withChildren(products.stream()
                         .map(Product::fullXml)
                         .toList())
                 .build();
@@ -22,7 +22,7 @@ public record Order(String id, Date date, Store store, Product[] products) {
     public XmlTag taxDetailsXml() {
         NumberFormat formatter = new DecimalFormat("#0.00");
         return xmlWithDate().toBuilder()
-                .withChildren(Arrays.stream(products)
+                .withChildren(products.stream()
                         .map(Product::basicXml)
                         .toList())
                 .withChild(XmlTag.builder()
@@ -36,7 +36,7 @@ public record Order(String id, Date date, Store store, Product[] products) {
     public XmlTag historyXml() {
         return xmlWithDate().toBuilder()
                 .withParameter(XmlParameter.of("totalDollars", String.valueOf(totalDollars())))
-                .withChildren(Arrays.stream(products)
+                .withChildren(products.stream()
                         .map(Product::basicXml)
                         .toList())
                 .build();
@@ -50,13 +50,13 @@ public record Order(String id, Date date, Store store, Product[] products) {
     }
 
     double totalDollars() {
-        return Arrays.stream(products)
+        return products.stream()
                 .mapToDouble(Product::getPriceInDollars)
                 .sum();
     }
 
     double taxInDollars() {
-        return initialTaxInDollars() + Arrays.stream(products)
+        return initialTaxInDollars() + products.stream()
                 .mapToDouble(Product::getTaxInDollars)
                 .sum();
     }

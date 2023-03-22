@@ -8,6 +8,7 @@ import javax.xml.transform.*;
 import java.util.*;
 
 import static codingdojo.domain.Price.Currency.USD;
+import static java.util.Collections.emptyList;
 
 public final class Dataset {
     public static final Date DATE_AFTER_TAX_CHANGE = DateUtil.fromIsoDate("2018-09-01T00:00Z");
@@ -54,12 +55,12 @@ public final class Dataset {
                     storeEventForStoreWithPrice(store, price) :
                     productWithPrice(price);
             store.addStockedItems(product);
-            return new Order(id, date, store, new Product[]{product});
+            return new Order(id, date, store, List.of(product));
         }
     }
 
     private static Store createStore() {
-        return new Store("Example Store", "111", new Product[]{});
+        return new Store("Example Store", "111", emptyList());
     }
 
     private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {

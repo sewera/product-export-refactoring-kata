@@ -16,10 +16,10 @@ public class Store {
     private final String name;
     private final String id;
 
-    public Store(String name, String id, Product[] products) {
+    public Store(String name, String id, Collection<Product> products) {
         this.name = name;
         this.id = id;
-        addStockedItems(products);
+        itemsInStock.addAll(products);
     }
 
     public XmlTag stockXml() {
