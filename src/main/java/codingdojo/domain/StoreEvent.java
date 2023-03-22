@@ -1,5 +1,6 @@
 package codingdojo.domain;
 
+import codingdojo.xml.*;
 import lombok.*;
 
 /**
@@ -19,9 +20,8 @@ public class StoreEvent extends Product {
 
     @Override
     protected void writeDetailsForFullXml(StringBuilder xml) {
-        xml.append(" stylist='");
-        xml.append(getStylist());
-        xml.append("'");
+        var parameter = XmlParameter.of("stylist", getStylist());
+        xml.append(parameter);
     }
 
     private static String getStylist() {
@@ -35,9 +35,8 @@ public class StoreEvent extends Product {
     }
 
     private void writeDetailsForStockXml(StringBuilder xml) {
-        xml.append(" location='");
-        xml.append(location.getName());
-        xml.append("'");
+        var parameter = XmlParameter.of("location", location.getName());
+        xml.append(parameter);
     }
 
     public void setLocation(Store store) {
