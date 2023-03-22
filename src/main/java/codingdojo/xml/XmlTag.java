@@ -1,0 +1,37 @@
+package codingdojo.xml;
+
+import lombok.*;
+
+import java.util.*;
+
+import static java.util.Collections.emptyList;
+import static lombok.AccessLevel.PRIVATE;
+
+@Builder(setterPrefix = "with")
+@AllArgsConstructor(access = PRIVATE)
+public class XmlTag {
+    private final String name;
+    @Singular
+    private final List<XmlParameter> parameters;
+    @Singular
+    private final List<XmlTag> children;
+
+    public static XmlTag empty(String name) {
+        return new XmlTag(name, emptyList(), emptyList());
+    }
+
+    @Override
+    public String toString() {
+        var xml = new StringBuilder();
+        xml.append("<");
+        xml.append(name);
+        parameters.forEach(parameter -> xml.append(parameter.toString()));
+        xml.append(">");
+        children.forEach(child -> xml.append(child.toString()));
+        xml.append("</");
+        xml.append(name);
+        xml.append(">");
+
+        return xml.toString();
+    }
+}
