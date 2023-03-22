@@ -3,7 +3,7 @@ package codingdojo;
 import java.text.*;
 import java.util.*;
 
-class DateUtil {
+public class DateUtil {
     private static final TimeZone TIME_ZONE = TimeZone.getTimeZone("UTC");
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm'Z'";
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN);

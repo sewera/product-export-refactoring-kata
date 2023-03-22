@@ -1,5 +1,6 @@
 package codingdojo;
 
+import codingdojo.domain.*;
 import org.junit.jupiter.api.*;
 
 import javax.xml.transform.*;

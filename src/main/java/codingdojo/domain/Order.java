@@ -1,4 +1,6 @@
-package codingdojo;
+package codingdojo.domain;
+
+import codingdojo.*;
 
 import java.text.*;
 import java.util.*;

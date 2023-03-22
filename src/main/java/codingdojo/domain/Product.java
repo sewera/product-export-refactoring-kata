@@ -1,10 +1,10 @@
-package codingdojo;
+package codingdojo.domain;
 
 import lombok.*;
 
 import java.util.function.*;
 
-import static codingdojo.Price.Currency.USD;
+import static codingdojo.domain.Price.Currency.USD;
 
 @Getter
 @ToString

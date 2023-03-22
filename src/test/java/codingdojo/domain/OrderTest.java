@@ -1,5 +1,6 @@
-package codingdojo;
+package codingdojo.domain;
 
+import codingdojo.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;

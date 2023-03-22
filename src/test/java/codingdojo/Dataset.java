@@ -1,12 +1,13 @@
 package codingdojo;
 
+import codingdojo.domain.*;
 import lombok.*;
 import org.xmlunit.builder.*;
 
 import javax.xml.transform.*;
 import java.util.*;
 
-import static codingdojo.Price.Currency.USD;
+import static codingdojo.domain.Price.Currency.USD;
 
 public final class Dataset {
     public static final Date DATE_AFTER_TAX_CHANGE = DateUtil.fromIsoDate("2018-09-01T00:00Z");
@@ -46,10 +47,10 @@ public final class Dataset {
 
     @Builder(setterPrefix = "with")
     public record Orders(double price, boolean event, Date date) {
-        Order createOrder() {
+        public Order createOrder() {
             var id = "123";
             var store = createStore();
-            Product product = event ?
+            var product = event ?
                     storeEventForStoreWithPrice(store, price) :
                     productWithPrice(price);
             store.addStockedItems(product);

@@ -1,5 +1,7 @@
 package codingdojo;
 
+import codingdojo.domain.*;
+
 import java.util.*;
 
 public class XMLExporter {

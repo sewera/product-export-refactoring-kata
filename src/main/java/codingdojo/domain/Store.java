@@ -1,4 +1,4 @@
-package codingdojo;
+package codingdojo.domain;
 
 import lombok.*;
 

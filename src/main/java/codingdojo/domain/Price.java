@@ -1,4 +1,4 @@
-package codingdojo;
+package codingdojo.domain;
 
 public record Price(double amount, Currency currency) {
     public void writeFullXml(StringBuilder xml) {
