@@ -53,6 +53,22 @@ class XmlTagTest {
     }
 
     @Test
+    void testTagWithValue() {
+        // given
+        var tested = XmlTag.builder()
+                .withName("name")
+                .withValue("value")
+                .build();
+        var expected = Input.fromString("<name>value</name>");
+
+        // when
+        var actual = tested.toString();
+
+        // then
+        assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
+    }
+
+    @Test
     void testTagWithOneChild() {
         // given
         var tested = XmlTag.builder()
@@ -71,10 +87,11 @@ class XmlTagTest {
     }
 
     @Test
-    void testTagWithChildrenWithParameters() {
+    void testTagWithValueAndChildrenAndParameters() {
         // given
         var tested = XmlTag.builder()
                 .withName("root")
+                .withValue("value")
                 .withParameter(XmlParameter.of("zero", "0"))
                 .withChild(XmlTag.builder()
                         .withName("firstChild")
@@ -85,7 +102,7 @@ class XmlTagTest {
                                 .build())
                         .build())
                 .build();
-        var expected = Input.fromString("<root zero='0'><firstChild first='1'><secondChild second='2' /></firstChild></root>");
+        var expected = Input.fromString("<root zero='0'><firstChild first='1'><secondChild second='2' /></firstChild>value</root>");
 
         // when
         var actual = tested.toString();
