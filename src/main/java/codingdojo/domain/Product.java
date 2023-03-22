@@ -14,10 +14,6 @@ public class Product {
     protected final int weight;
     protected final Price price;
 
-    public void writeFullXml(StringBuilder xml) {
-        xml.append(fullXml());
-    }
-
     public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("product")
@@ -30,10 +26,6 @@ public class Product {
 
     protected XmlParameter detailsForFullXml() {
         return XmlParameter.of("weight", String.valueOf(weight));
-    }
-
-    public void writeStockXml(StringBuilder xml) {
-        xml.append(stockXml());
     }
 
     public XmlTag stockXml() {
