@@ -18,21 +18,31 @@ public class Store {
     public Store(String name, String id, Product[] products) {
         this.name = name;
         this.id = id;
-        this.addStockedItems(products);
+        addStockedItems(products);
+    }
+
+    public void writeStockXml(StringBuilder xml) {
+        xml.append("<store");
+        xml.append(" name='");
+        xml.append(name);
+        xml.append("'");
+        xml.append(">");
+        itemsInStock.values().forEach(product -> product.writeStockXml(xml));
+        xml.append("</store>");
     }
 
     public void addStockedItems(Product... items) {
         for (Product item : items) {
-            this.itemsInStock.put(item.getName(), item);
+            itemsInStock.put(item.getName(), item);
         }
     }
 
     public void addStoreEvent(StoreEvent storeEvent) {
-        this.itemsInStock.put(storeEvent.getName(), storeEvent);
+        itemsInStock.put(storeEvent.getName(), storeEvent);
     }
 
     public Collection<Product> getStock() {
-        return Collections.unmodifiableCollection(this.itemsInStock.values());
+        return Collections.unmodifiableCollection(itemsInStock.values());
     }
 
     @SuppressWarnings("unused")

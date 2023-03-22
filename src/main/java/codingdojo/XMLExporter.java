@@ -32,17 +32,7 @@ public class XMLExporter {
     public static String exportStore(Store store) {
         StringBuilder xml = new StringBuilder();
         writeXmlHeader(xml);
-
-        xml.append("<store");
-        xml.append(" name='");
-        xml.append(store.getName());
-        xml.append("'");
-        xml.append(">");
-        for (Product product : store.getStock())
-            product.writeStockXml(xml);
-
-        xml.append("</store>");
-
+        store.writeStockXml(xml);
         return xml.toString();
     }
 
