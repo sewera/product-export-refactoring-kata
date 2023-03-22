@@ -35,13 +35,13 @@ public final class Dataset {
         return Account.of(List.of(order));
     }
 
-    public List<Order> exampleOrderListWithRegularProduct() {
+    public Account exampleAccountWithRegularProduct() {
         var order = Orders.builder()
                 .withPrice(14.99)
                 .withDate(DATE_BEFORE_TAX_CHANGE)
                 .build()
                 .createOrder();
-        return List.of(order);
+        return Account.of(List.of(order));
     }
 
     @Builder(setterPrefix = "with")

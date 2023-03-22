@@ -14,11 +14,11 @@ class XMLExporterTest {
     @Test
     void testFullExport() {
         // given
-        var orders = data.exampleAccountWithStoreEvent();
+        var account = data.exampleAccountWithStoreEvent();
         var expected = data.allOrdersReference();
 
         // when
-        var actual = XMLExporter.exportFull(orders);
+        var actual = XMLExporter.exportFull(account);
 
         // then
         assertXml(actual, expected);
@@ -27,11 +27,11 @@ class XMLExporterTest {
     @Test
     void testTaxDetailsExportForStoreEvent() {
         // given
-        var orders = data.exampleAccountWithStoreEvent();
+        var account = data.exampleAccountWithStoreEvent();
         var expected = data.taxDetailsWithStoreEventReference();
 
         // when
-        var actual = XMLExporter.exportTaxDetails(orders);
+        var actual = XMLExporter.exportTaxDetails(account);
 
         // then
         assertXml(actual, expected);
@@ -40,11 +40,11 @@ class XMLExporterTest {
     @Test
     void testTaxDetailsExportForRegularProduct() {
         // given
-        var orders = data.exampleOrderListWithRegularProduct();
+        var account = data.exampleAccountWithRegularProduct();
         var expected = data.taxDetailsWithRegularProductReference();
 
         // when
-        var actual = XMLExporter.exportTaxDetails(orders);
+        var actual = XMLExporter.exportTaxDetails(account);
 
         // then
         assertXml(actual, expected);
@@ -96,7 +96,7 @@ class XMLExporterTest {
         var expected = data.noOrdersReference();
 
         // when
-        var actual = XMLExporter.exportFull(emptyList());
+        var actual = XMLExporter.exportFull(Account.of(emptyList()));
 
         // then
         assertXml(actual, expected);

@@ -10,19 +10,11 @@ public class XMLExporter {
         return xml.toString();
     }
 
-    public static String exportFull(Collection<Order> orders) {
-        return exportFull(Account.of(orders));
-    }
-
     public static String exportTaxDetails(Account account) {
         var xml = new StringBuilder();
         writeXmlHeader(xml);
         account.writeTaxDetailsXml(xml);
         return xml.toString();
-    }
-
-    public static String exportTaxDetails(Collection<Order> orders) {
-        return exportTaxDetails(Account.of(orders));
     }
 
     public static String exportStore(Store store) {
@@ -38,16 +30,38 @@ public class XMLExporter {
         return exportHistory(account, now);
     }
 
-    @SuppressWarnings("unused") // public interface
-    public static String exportHistory(Collection<Order> orders) {
-        return exportHistory(Account.of(orders));
-    }
-
     static String exportHistory(Account account, Date dateOfCreation) {
         var xml = new StringBuilder();
         writeXmlHeader(xml);
         account.writeHistoryXml(xml, dateOfCreation);
         return xml.toString();
+    }
+
+    /**
+     * @deprecated use {@link XMLExporter#exportFull(Account)} instead
+     */
+    @Deprecated
+    @SuppressWarnings("unused") // public interface
+    public static String exportFull(Collection<Order> orders) {
+        return exportFull(Account.of(orders));
+    }
+
+    /**
+     * @deprecated use {@link XMLExporter#exportTaxDetails(Account)} instead
+     */
+    @Deprecated
+    @SuppressWarnings("unused") // public interface
+    public static String exportTaxDetails(Collection<Order> orders) {
+        return exportTaxDetails(Account.of(orders));
+    }
+
+    /**
+     * @deprecated use {@link XMLExporter#exportHistory(Account)} instead
+     */
+    @Deprecated
+    @SuppressWarnings("unused") // public interface
+    public static String exportHistory(Collection<Order> orders) {
+        return exportHistory(Account.of(orders));
     }
 
     private static void writeXmlHeader(StringBuilder xml) {
