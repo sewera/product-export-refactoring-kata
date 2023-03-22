@@ -48,6 +48,6 @@ public class Account {
     }
 
     double getTaxInDollars() {
-        return orders.stream().mapToDouble(Order::getTaxInDollars).sum();
+        return orders.stream().mapToDouble(Order::taxInDollars).sum();
     }
 }

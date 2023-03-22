@@ -44,7 +44,7 @@ class OrderTest {
                 .createOrder();
 
         // when
-        var actual = order.getTaxInDollars();
+        var actual = order.taxInDollars();
 
         // then
         assertThat(actual).isEqualTo(expectedTaxFor100Price);

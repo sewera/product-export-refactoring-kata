@@ -21,28 +21,31 @@ public record Order(String id, Date date, Store store, Product[] products) {
 
     public XmlTag taxDetailsXml() {
         NumberFormat formatter = new DecimalFormat("#0.00");
-        return XmlTag.builder()
-                .withName("order")
-                .withParameter(XmlParameter.of("date", DateUtil.toIsoDate(date)))
+        return xmlWithDate().toBuilder()
                 .withChildren(Arrays.stream(products)
                         .map(Product::basicXml)
                         .toList())
                 .withChild(XmlTag.builder()
                         .withName("orderTax")
                         .withParameter(XmlParameter.of("currency", "USD"))
-                        .withValue(formatter.format(getTaxInDollars()))
+                        .withValue(formatter.format(taxInDollars()))
                         .build())
                 .build();
     }
 
     public XmlTag historyXml() {
-        return XmlTag.builder()
-                .withName("order")
-                .withParameter(XmlParameter.of("date", DateUtil.toIsoDate(date)))
+        return xmlWithDate().toBuilder()
                 .withParameter(XmlParameter.of("totalDollars", String.valueOf(totalDollars())))
                 .withChildren(Arrays.stream(products)
                         .map(Product::basicXml)
                         .toList())
+                .build();
+    }
+
+    private XmlTag xmlWithDate() {
+        return XmlTag.builder()
+                .withName("order")
+                .withParameter(XmlParameter.of("date", DateUtil.toIsoDate(date)))
                 .build();
     }
 
@@ -52,7 +55,7 @@ public record Order(String id, Date date, Store store, Product[] products) {
                 .sum();
     }
 
-    double getTaxInDollars() {
+    double taxInDollars() {
         return initialTaxInDollars() + Arrays.stream(products)
                 .mapToDouble(Product::getTaxInDollars)
                 .sum();
