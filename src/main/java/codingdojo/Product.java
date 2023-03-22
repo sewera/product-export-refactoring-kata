@@ -51,20 +51,16 @@ public class Product {
         xml.append("</product>");
     }
 
-    public double getPriceInCurrency(Price.Currency currency) {
-        return price.getAmountInCurrency(currency);
+    double getPriceInDollars() {
+        return price.getAmountInCurrency(USD);
     }
 
-    public double getTaxRate() {
+    protected double getTaxRate() {
         return 0.175;
     }
 
-    public double getTaxInDollars() {
-        return getPriceInCurrency(USD) * getTaxRate();
-    }
-
-    public boolean isEvent() {
-        return false;
+    double getTaxInDollars() {
+        return getPriceInDollars() * getTaxRate();
     }
 
     @SuppressWarnings("unused")

@@ -3,8 +3,6 @@ package codingdojo;
 import java.text.*;
 import java.util.*;
 
-import static codingdojo.Price.Currency.USD;
-
 public record Order(String id, Date date, Store store, Product[] products) {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
@@ -44,13 +42,13 @@ public record Order(String id, Date date, Store store, Product[] products) {
         xml.append("</order>");
     }
 
-    public double totalDollars() {
+    double totalDollars() {
         return Arrays.stream(products)
-                .mapToDouble(product -> product.getPriceInCurrency(USD))
+                .mapToDouble(Product::getPriceInDollars)
                 .sum();
     }
 
-    public double getTaxInDollars() {
+    double getTaxInDollars() {
         return initialTaxInDollars() + Arrays.stream(products)
                 .mapToDouble(Product::getTaxInDollars)
                 .sum();

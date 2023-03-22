@@ -49,8 +49,4 @@ public class StoreEvent extends Product {
         return 0.25;
     }
 
-    @Override
-    public boolean isEvent() {
-        return true;
-    }
 }

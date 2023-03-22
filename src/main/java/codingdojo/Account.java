@@ -40,7 +40,7 @@ public class Account {
         xml.append("</orderHistory>");
     }
 
-    public double getTaxInDollars() {
+    double getTaxInDollars() {
         return orders.stream().mapToDouble(Order::getTaxInDollars).sum();
     }
 }
