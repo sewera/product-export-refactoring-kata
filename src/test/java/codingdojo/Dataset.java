@@ -55,7 +55,7 @@ public final class Dataset {
                     storeEventForStoreWithPrice(store, price) :
                     productWithPrice(price);
             store.addStockedItems(product);
-            return new Order(id, date, store, List.of(product));
+            return new Order(id, date, List.of(product));
         }
     }
 

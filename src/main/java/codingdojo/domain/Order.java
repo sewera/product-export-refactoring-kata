@@ -6,7 +6,7 @@ import codingdojo.xml.*;
 import java.text.*;
 import java.util.*;
 
-public record Order(String id, Date date, Store store, List<Product> products) {
+public record Order(String id, Date date, List<Product> products) {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
 
     public XmlTag fullXml() {
