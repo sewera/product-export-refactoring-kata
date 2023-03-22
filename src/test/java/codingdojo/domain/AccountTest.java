@@ -43,7 +43,7 @@ class AccountTest {
         var expected = Money.dollars(337.5);
 
         // when
-        var actual = account.getTaxInDollars();
+        var actual = account.getTax();
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -56,7 +56,7 @@ class AccountTest {
         var expected = Money.dollars(0.0);
 
         // when
-        var actual = ledger.getTaxInDollars();
+        var actual = ledger.getTax();
 
         // then
         assertThat(actual).isEqualTo(expected);

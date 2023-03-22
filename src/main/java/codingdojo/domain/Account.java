@@ -31,7 +31,7 @@ public class Account {
                 .withChildren(orders.stream()
                         .map(Order::taxDetailsXml)
                         .toList())
-                .withValue(getTaxInDollars().plainAmount())
+                .withValue(getTax().plainAmount())
                 .build();
     }
 
@@ -45,10 +45,10 @@ public class Account {
                 .build();
     }
 
-    Money getTaxInDollars() {
+    Money getTax() {
         return orders.stream()
                 .map(Order::taxInDollars)
-                .reduce(Money::sumDollars)
+                .reduce(Money::sum)
                 .orElse(Money.dollars(0));
     }
 }

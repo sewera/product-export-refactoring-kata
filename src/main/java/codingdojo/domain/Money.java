@@ -22,16 +22,20 @@ public record Money(double amount, Currency currency) {
         return new Money(amount, Currency.USD);
     }
 
-    public static Money sumDollars(Money a, Money b) {
-        return Money.dollars(a.amount + b.amount);
+    public static Money sum(Money a, Money b) {
+        if (!a.currency.equals(b.currency))
+            throw new UnsupportedOperationException("shouldn't call this from a unit test, it will do a slow db lookup");
+        return new Money(a.amount + b.amount, a.currency);
+    }
+
+    public Money timesRate(double rate) {
+        return new Money(amount * rate, currency);
     }
 
     public double getAmountInCurrency(Currency currency) {
-        if (this.currency.equals(currency))
-            return amount;
-        else {
+        if (!this.currency.equals(currency))
             throw new UnsupportedOperationException("shouldn't call this from a unit test, it will do a slow db lookup");
-        }
+        return amount;
     }
 
     public enum Currency {

@@ -29,7 +29,7 @@ public record Order(String id, Date date, List<Product> products) {
 
     public XmlTag historyXml() {
         return xmlWithDate().toBuilder()
-                .withParameter(XmlParameter.of("totalDollars", String.valueOf(totalDollars())))
+                .withParameter(XmlParameter.of("totalDollars", totalDollars().plainAmount()))
                 .withChildren(products.stream()
                         .map(Product::basicXml)
                         .toList())
@@ -43,10 +43,11 @@ public record Order(String id, Date date, List<Product> products) {
                 .build();
     }
 
-    double totalDollars() {
+    Money totalDollars() {
         return products.stream()
-                .mapToDouble(Product::priceInDollars)
-                .sum();
+                .map(Product::getPrice)
+                .reduce(Money::sum)
+                .orElse(Money.dollars(0));
     }
 
     Money taxInDollars() {

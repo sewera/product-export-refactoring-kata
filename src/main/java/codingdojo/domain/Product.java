@@ -10,6 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 public abstract class Product {
     protected final String name;
     protected final String id;
+    @Getter
     protected final Money price;
 
     public abstract XmlTag fullXml();
@@ -30,14 +31,10 @@ public abstract class Product {
                 .build();
     }
 
-    double priceInDollars() {
-        return price.getAmountInCurrency(USD);
-    }
-
     protected abstract double taxRate();
 
     double taxInDollars() {
-        return priceInDollars() * taxRate();
+        return price.getAmountInCurrency(USD) * taxRate();
     }
 
     @SuppressWarnings("unused")
