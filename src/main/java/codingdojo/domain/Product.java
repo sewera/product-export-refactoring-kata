@@ -1,5 +1,6 @@
 package codingdojo.domain;
 
+import codingdojo.xml.*;
 import lombok.*;
 
 import java.util.function.*;
@@ -32,9 +33,8 @@ public class Product {
     }
 
     protected void writeDetailsForFullXml(StringBuilder xml) {
-        xml.append(" weight='");
-        xml.append(weight);
-        xml.append("'");
+        var parameter = XmlParameter.of("weight", String.valueOf(weight));
+        xml.append(parameter);
     }
 
     public void writeStockXml(StringBuilder xml) {
