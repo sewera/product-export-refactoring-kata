@@ -31,7 +31,15 @@ public class StoreEvent extends Product {
 
     @Override
     public void writeStockXml(StringBuilder xml) {
-        writeDetailedXml(xml, this::writeDetailsForStockXml);
+        xml.append("<product");
+        xml.append(" id='");
+        xml.append(id);
+        xml.append("'");
+        writeDetailsForStockXml(xml);
+        xml.append(">");
+        price.writeFullXml(xml);
+        xml.append(name);
+        xml.append("</product>");
     }
 
     private void writeDetailsForStockXml(StringBuilder xml) {

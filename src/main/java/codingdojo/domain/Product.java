@@ -3,8 +3,6 @@ package codingdojo.domain;
 import codingdojo.xml.*;
 import lombok.*;
 
-import java.util.function.*;
-
 import static codingdojo.domain.Price.Currency.USD;
 
 @Getter
@@ -17,15 +15,11 @@ public class Product {
     protected final Price price;
 
     public void writeFullXml(StringBuilder xml) {
-        writeDetailedXml(xml, this::writeDetailsForFullXml);
-    }
-
-    protected void writeDetailedXml(StringBuilder xml, Consumer<StringBuilder> details) {
         xml.append("<product");
         xml.append(" id='");
         xml.append(id);
         xml.append("'");
-        details.accept(xml);
+        writeDetailsForFullXml(xml);
         xml.append(">");
         price.writeFullXml(xml);
         xml.append(name);
@@ -38,7 +32,15 @@ public class Product {
     }
 
     public void writeStockXml(StringBuilder xml) {
-        writeFullXml(xml);
+        xml.append("<product");
+        xml.append(" id='");
+        xml.append(id);
+        xml.append("'");
+        writeDetailsForFullXml(xml);
+        xml.append(">");
+        price.writeFullXml(xml);
+        xml.append(name);
+        xml.append("</product>");
     }
 
     public void writeBasicXml(StringBuilder xml) {
