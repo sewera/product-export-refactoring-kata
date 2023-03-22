@@ -7,19 +7,6 @@ import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 class XmlTagTest {
     @Test
-    void testEmptyTag() {
-        // given
-        var tested = XmlTag.empty("name");
-        var expected = Input.fromString("<name />").build();
-
-        // when
-        var actual = tested.toString();
-
-        // then
-        assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
-    }
-
-    @Test
     void testTagWithOneParameter() {
         // given
         var tested = XmlTag.builder()
@@ -103,6 +90,19 @@ class XmlTagTest {
                         .build())
                 .build();
         var expected = Input.fromString("<root zero='0'><firstChild first='1'><secondChild second='2' /></firstChild>value</root>");
+
+        // when
+        var actual = tested.toString();
+
+        // then
+        assertThat(actual).and(expected).ignoreWhitespace().areIdentical();
+    }
+
+    @Test
+    void testEmptyTag() {
+        // given
+        var tested = XmlTag.empty("name");
+        var expected = Input.fromString("<name />").build();
 
         // when
         var actual = tested.toString();

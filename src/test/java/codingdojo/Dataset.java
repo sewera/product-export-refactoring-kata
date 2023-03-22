@@ -7,8 +7,6 @@ import org.xmlunit.builder.*;
 import javax.xml.transform.*;
 import java.util.*;
 
-import static java.util.Collections.emptyList;
-
 public final class Dataset {
     public static final Date DATE_AFTER_TAX_CHANGE = DateUtil.fromIsoDate("2018-09-01T00:00Z");
     public static final Date DATE_BEFORE_TAX_CHANGE = DateUtil.fromIsoDate("2017-09-01T00:00Z");
@@ -54,12 +52,16 @@ public final class Dataset {
                     storeEventForStoreWithPrice(store, price) :
                     productWithPrice(price);
             store.addStockedItems(product);
-            return new Order(id, date, List.of(product));
+            return Order.builder()
+                    .withId(id)
+                    .withDate(date)
+                    .withProduct(product)
+                    .build();
         }
     }
 
     private static Store createStore() {
-        return new Store("Example Store", "111", emptyList());
+        return new Store("Example Store");
     }
 
     private static StoreEvent storeEventForStoreWithPrice(Store store, double price) {

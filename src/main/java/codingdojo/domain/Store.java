@@ -9,17 +9,13 @@ import java.util.*;
  * Represents a physical Store where you can go and buy
  * products and attend events.
  */
-@Getter
-@ToString
 public class Store {
-    private final Set<Product> itemsInStock = new HashSet<>();
+    @Getter
     private final String name;
-    private final String id;
+    private final Set<Product> itemsInStock = new HashSet<>();
 
-    public Store(String name, String id, Collection<Product> products) {
+    public Store(String name) {
         this.name = name;
-        this.id = id;
-        itemsInStock.addAll(products);
     }
 
     public XmlTag stockXml() {

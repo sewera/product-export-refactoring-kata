@@ -2,13 +2,21 @@ package codingdojo.domain;
 
 import codingdojo.*;
 import codingdojo.xml.*;
+import lombok.*;
 
 import java.util.*;
 
 import static codingdojo.domain.Money.Currency.USD;
 
-public record Order(String id, Date date, List<Product> products) {
+@Builder(setterPrefix = "with")
+@AllArgsConstructor
+public final class Order {
     private static final Date TAX_CHANGE = DateUtil.fromIsoDate("2018-01-01T00:00Z");
+
+    private final String id;
+    private final Date date;
+    @Singular
+    private final List<Product> products;
 
     public XmlTag fullXml() {
         return XmlTag.builder()
@@ -48,7 +56,6 @@ public record Order(String id, Date date, List<Product> products) {
     private String totalDollars() {
         return totalPrice().plainAmountInCurrency(USD);
     }
-
 
     Money totalPrice() {
         return products.stream()

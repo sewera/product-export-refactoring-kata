@@ -1,14 +1,12 @@
 package codingdojo.domain;
 
 import codingdojo.xml.*;
-import lombok.*;
 
 /**
  * StoreEvent is a ticket to an in-store event, e.g.,
  * makeover, eyeshadow masterclass,
  * or beauty product launch evening reception.
  */
-@ToString
 public class StoreEvent extends Product {
     private final Store location;
 

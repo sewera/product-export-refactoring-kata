@@ -1,10 +1,7 @@
 package codingdojo.domain;
 
 import codingdojo.xml.*;
-import lombok.*;
 
-@Getter
-@ToString
 public class RegularProduct extends Product {
     private final int weight;
 
