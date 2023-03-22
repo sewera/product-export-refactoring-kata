@@ -15,17 +15,15 @@ public class Product {
     protected final Price price;
 
     public XmlTag fullXml() {
-        return XmlTag.builder()
-                .withName("product")
-                .withParameter(XmlParameter.of("id", id))
-                .withParameter(detailsForFullXml())
-                .withChild(price.fullXml())
-                .withValue(name)
+        return xmlWithPrice().toBuilder()
+                .withParameter(XmlParameter.of("weight", String.valueOf(weight)))
                 .build();
     }
 
-    protected XmlParameter detailsForFullXml() {
-        return XmlParameter.of("weight", String.valueOf(weight));
+    protected XmlTag xmlWithPrice() {
+        return basicXml().toBuilder()
+                .withChild(price.fullXml())
+                .build();
     }
 
     public XmlTag stockXml() {

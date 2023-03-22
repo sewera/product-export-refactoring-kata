@@ -19,29 +19,23 @@ public class StoreEvent extends Product {
     }
 
     @Override
-    protected XmlParameter detailsForFullXml() {
-        return XmlParameter.of("stylist", getStylist());
+    public XmlTag fullXml() {
+        return xmlWithPrice().toBuilder()
+                .withParameter(XmlParameter.of("stylist", getStylist()))
+                .build();
+    }
+
+    @Override
+    public XmlTag stockXml() {
+        return xmlWithPrice().toBuilder()
+                .withParameter(XmlParameter.of("location", location.getName()))
+                .build();
     }
 
     @SuppressWarnings("SameReturnValue")
     private static String getStylist() {
         // In the future, we will look up the name of the stylist from the database
         return "John Doe";
-    }
-
-    @Override
-    public XmlTag stockXml() {
-        return XmlTag.builder()
-                .withName("product")
-                .withParameter(XmlParameter.of("id", id))
-                .withParameter(detailsForStockXml())
-                .withChild(price.fullXml())
-                .withValue(name)
-                .build();
-    }
-
-    private XmlParameter detailsForStockXml() {
-        return XmlParameter.of("location", location.getName());
     }
 
     public void setLocation(Store store) {
@@ -52,5 +46,4 @@ public class StoreEvent extends Product {
     public double getTaxRate() {
         return 0.25;
     }
-
 }
