@@ -29,17 +29,14 @@ public class StoreEvent extends Product {
     }
 
     @Override
-    public void writeStockXml(StringBuilder xml) {
-        xml.append("<product");
-        xml.append(" id='");
-        xml.append(id);
-        xml.append("'");
-        var details = detailsForStockXml();
-        xml.append(details);
-        xml.append(">");
-        price.writeFullXml(xml);
-        xml.append(name);
-        xml.append("</product>");
+    public XmlTag stockXml() {
+        return XmlTag.builder()
+                .withName("product")
+                .withParameter(XmlParameter.of("id", id))
+                .withParameter(detailsForStockXml())
+                .withChild(price.fullXml())
+                .withValue(name)
+                .build();
     }
 
     private XmlParameter detailsForStockXml() {

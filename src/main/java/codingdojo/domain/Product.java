@@ -15,16 +15,17 @@ public class Product {
     protected final Price price;
 
     public void writeFullXml(StringBuilder xml) {
-        xml.append("<product");
-        xml.append(" id='");
-        xml.append(id);
-        xml.append("'");
-        var details = detailsForFullXml();
-        xml.append(details);
-        xml.append(">");
-        price.writeFullXml(xml);
-        xml.append(name);
-        xml.append("</product>");
+        xml.append(fullXml());
+    }
+
+    private XmlTag fullXml() {
+        return XmlTag.builder()
+                .withName("product")
+                .withParameter(XmlParameter.of("id", id))
+                .withParameter(detailsForFullXml())
+                .withChild(price.fullXml())
+                .withValue(name)
+                .build();
     }
 
     protected XmlParameter detailsForFullXml() {
@@ -32,17 +33,23 @@ public class Product {
     }
 
     public void writeStockXml(StringBuilder xml) {
-        writeFullXml(xml);
+        xml.append(stockXml());
+    }
+
+    public XmlTag stockXml() {
+        return fullXml();
     }
 
     public void writeBasicXml(StringBuilder xml) {
-        xml.append("<product");
-        xml.append(" id='");
-        xml.append(id);
-        xml.append("'");
-        xml.append(">");
-        xml.append(name);
-        xml.append("</product>");
+        xml.append(basicXml());
+    }
+
+    private XmlTag basicXml() {
+        return XmlTag.builder()
+                .withName("product")
+                .withParameter(XmlParameter.of("id", id))
+                .withValue(name)
+                .build();
     }
 
     double getPriceInDollars() {
