@@ -7,7 +7,7 @@ import java.util.*;
 import static java.util.Collections.emptyList;
 import static lombok.AccessLevel.PRIVATE;
 
-@Builder(setterPrefix = "with")
+@Builder(setterPrefix = "with", toBuilder = true)
 @AllArgsConstructor(access = PRIVATE)
 public class XmlTag {
     private final String name;
