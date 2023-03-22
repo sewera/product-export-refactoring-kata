@@ -1,6 +1,7 @@
 package codingdojo.domain;
 
 import codingdojo.*;
+import codingdojo.xml.*;
 import lombok.*;
 
 import java.text.*;
@@ -17,28 +18,45 @@ public class Account {
     }
 
     public void writeFullXml(StringBuilder xml) {
-        xml.append("<orders>");
-        orders.forEach(order -> order.writeFullXml(xml));
-        xml.append("</orders>");
+        xml.append(fullXml());
+    }
+
+    public XmlTag fullXml() {
+        return XmlTag.builder()
+                .withName("orders")
+                .withChildren(orders.stream()
+                        .map(Order::fullXml)
+                        .toList())
+                .build();
     }
 
     public void writeTaxDetailsXml(StringBuilder xml) {
+        xml.append(taxDetailsXml());
+    }
+
+    public XmlTag taxDetailsXml() {
         var formatter = new DecimalFormat("#0.00");
-        xml.append("<orderTax>");
-        orders.forEach(order -> order.writeTaxDetailsXml(xml));
-        var totalTax = getTaxInDollars();
-        xml.append(formatter.format(totalTax));
-        xml.append("</orderTax>");
+        return XmlTag.builder()
+                .withName("orderTax")
+                .withChildren(orders.stream()
+                        .map(Order::taxDetailsXml)
+                        .toList())
+                .withValue(formatter.format(getTaxInDollars()))
+                .build();
     }
 
     public void writeHistoryXml(StringBuilder xml, Date dateOfCreation) {
-        xml.append("<orderHistory");
-        xml.append(" createdAt='");
-        xml.append(DateUtil.toIsoDate(dateOfCreation));
-        xml.append("'");
-        xml.append(">");
-        orders.forEach(order -> order.writeHistoryXml(xml));
-        xml.append("</orderHistory>");
+        xml.append(historyXml(dateOfCreation));
+    }
+
+    public XmlTag historyXml(Date dateOfCreation) {
+        return XmlTag.builder()
+                .withName("orderHistory")
+                .withParameter(XmlParameter.of("createdAt", DateUtil.toIsoDate(dateOfCreation)))
+                .withChildren(orders.stream()
+                        .map(Order::historyXml)
+                        .toList())
+                .build();
     }
 
     double getTaxInDollars() {
