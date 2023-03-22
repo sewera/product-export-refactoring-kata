@@ -5,32 +5,29 @@ import java.util.*;
 
 public class XMLExporter {
     public static String exportFull(Collection<Order> orders) {
-        StringBuilder xml = new StringBuilder();
+        var xml = new StringBuilder();
         writeXmlHeader(xml);
-        xml.append("<orders>");
-        for (Order order : orders)
-            order.writeFullXml(xml);
-
-        xml.append("</orders>");
+        var account = Account.of(orders);
+        account.writeFullXml(xml);
         return xml.toString();
     }
 
     public static String exportTaxDetails(Collection<Order> orders) {
-        NumberFormat formatter = new DecimalFormat("#0.00");
-        StringBuilder xml = new StringBuilder();
+        var formatter = new DecimalFormat("#0.00");
+        var xml = new StringBuilder();
         writeXmlHeader(xml);
         xml.append("<orderTax>");
-        for (Order order : orders)
+        for (var order : orders)
             order.writeTaxDetailsXml(xml);
 
-        double totalTax = calculateAddedTaxInDollars(orders);
+        var totalTax = calculateAddedTaxInDollars(orders);
         xml.append(formatter.format(totalTax));
         xml.append("</orderTax>");
         return xml.toString();
     }
 
     public static String exportStore(Store store) {
-        StringBuilder xml = new StringBuilder();
+        var xml = new StringBuilder();
         writeXmlHeader(xml);
         store.writeStockXml(xml);
         return xml.toString();
@@ -38,19 +35,19 @@ public class XMLExporter {
 
     @SuppressWarnings("unused") // public interface
     public static String exportHistory(Collection<Order> orders) {
-        Date now = new Date();
+        var now = new Date();
         return exportHistory(orders, now);
     }
 
     static String exportHistory(Collection<Order> orders, Date date) {
-        StringBuilder xml = new StringBuilder();
+        var xml = new StringBuilder();
         writeXmlHeader(xml);
         xml.append("<orderHistory");
         xml.append(" createdAt='");
         xml.append(DateUtil.toIsoDate(date));
         xml.append("'");
         xml.append(">");
-        for (Order order : orders)
+        for (var order : orders)
             order.writeHistoryXml(xml);
 
         xml.append("</orderHistory>");
