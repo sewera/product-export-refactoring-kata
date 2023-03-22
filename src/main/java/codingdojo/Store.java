@@ -11,7 +11,7 @@ import java.util.*;
 @Getter
 @ToString
 public class Store {
-    private final Map<String, Product> itemsInStock = new HashMap<>();
+    private final Set<Product> itemsInStock = new HashSet<>();
     private final String name;
     private final String id;
 
@@ -27,22 +27,16 @@ public class Store {
         xml.append(name);
         xml.append("'");
         xml.append(">");
-        itemsInStock.values().forEach(product -> product.writeStockXml(xml));
+        itemsInStock.forEach(product -> product.writeStockXml(xml));
         xml.append("</store>");
     }
 
     public void addStockedItems(Product... items) {
-        for (Product item : items) {
-            itemsInStock.put(item.getName(), item);
-        }
+        itemsInStock.addAll(Arrays.asList(items));
     }
 
     public void addStoreEvent(StoreEvent storeEvent) {
-        itemsInStock.put(storeEvent.getName(), storeEvent);
-    }
-
-    public Collection<Product> getStock() {
-        return Collections.unmodifiableCollection(itemsInStock.values());
+        itemsInStock.add(storeEvent);
     }
 
     @SuppressWarnings("unused")
