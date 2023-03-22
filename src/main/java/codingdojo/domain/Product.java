@@ -19,7 +19,7 @@ public class Product {
         xml.append(" id='");
         xml.append(id);
         xml.append("'");
-        var details = writeDetailsForFullXml(xml);
+        var details = detailsForFullXml();
         xml.append(details);
         xml.append(">");
         price.writeFullXml(xml);
@@ -27,7 +27,7 @@ public class Product {
         xml.append("</product>");
     }
 
-    protected XmlParameter writeDetailsForFullXml(StringBuilder xml) {
+    protected XmlParameter detailsForFullXml() {
         return XmlParameter.of("weight", String.valueOf(weight));
     }
 

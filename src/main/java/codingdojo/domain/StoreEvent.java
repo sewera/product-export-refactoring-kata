@@ -19,7 +19,7 @@ public class StoreEvent extends Product {
     }
 
     @Override
-    protected XmlParameter writeDetailsForFullXml(StringBuilder xml) {
+    protected XmlParameter detailsForFullXml() {
         return XmlParameter.of("stylist", getStylist());
     }
 
@@ -34,7 +34,7 @@ public class StoreEvent extends Product {
         xml.append(" id='");
         xml.append(id);
         xml.append("'");
-        var details = writeDetailsForStockXml(xml);
+        var details = detailsForStockXml();
         xml.append(details);
         xml.append(">");
         price.writeFullXml(xml);
@@ -42,7 +42,7 @@ public class StoreEvent extends Product {
         xml.append("</product>");
     }
 
-    private XmlParameter writeDetailsForStockXml(StringBuilder xml) {
+    private XmlParameter detailsForStockXml() {
         return XmlParameter.of("location", location.getName());
     }
 
