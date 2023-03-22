@@ -23,6 +23,7 @@ public class StoreEvent extends Product {
         return XmlParameter.of("stylist", getStylist());
     }
 
+    @SuppressWarnings("SameReturnValue")
     private static String getStylist() {
         // In the future, we will look up the name of the stylist from the database
         return "John Doe";

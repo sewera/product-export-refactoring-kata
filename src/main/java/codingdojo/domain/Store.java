@@ -22,11 +22,7 @@ public class Store {
         addStockedItems(products);
     }
 
-    public void writeStockXml(StringBuilder xml) {
-        xml.append(stockXml());
-    }
-
-    private XmlTag stockXml() {
+    public XmlTag stockXml() {
         return XmlTag.builder()
                 .withName("store")
                 .withParameter(XmlParameter.of("name", name))

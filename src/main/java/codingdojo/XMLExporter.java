@@ -5,25 +5,18 @@ import codingdojo.domain.*;
 import java.util.*;
 
 public class XMLExporter {
+    public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
     public static String exportFull(Account account) {
-        var xml = new StringBuilder();
-        writeXmlHeader(xml);
-        account.writeFullXml(xml);
-        return xml.toString();
+        return XML_HEADER + account.fullXml();
     }
 
     public static String exportTaxDetails(Account account) {
-        var xml = new StringBuilder();
-        writeXmlHeader(xml);
-        account.writeTaxDetailsXml(xml);
-        return xml.toString();
+        return XML_HEADER + account.taxDetailsXml();
     }
 
     public static String exportStore(Store store) {
-        var xml = new StringBuilder();
-        writeXmlHeader(xml);
-        store.writeStockXml(xml);
-        return xml.toString();
+        return XML_HEADER + store.stockXml();
     }
 
     @SuppressWarnings("unused") // public interface
@@ -33,10 +26,7 @@ public class XMLExporter {
     }
 
     static String exportHistory(Account account, Date dateOfCreation) {
-        var xml = new StringBuilder();
-        writeXmlHeader(xml);
-        account.writeHistoryXml(xml, dateOfCreation);
-        return xml.toString();
+        return XML_HEADER + account.historyXml(dateOfCreation);
     }
 
     /**
@@ -64,9 +54,5 @@ public class XMLExporter {
     @SuppressWarnings("unused") // public interface
     public static String exportHistory(Collection<Order> orders) {
         return exportHistory(Account.of(orders));
-    }
-
-    private static void writeXmlHeader(StringBuilder xml) {
-        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
     }
 }

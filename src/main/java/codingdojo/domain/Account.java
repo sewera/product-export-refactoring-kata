@@ -17,10 +17,6 @@ public class Account {
         return new Account(orders.stream().toList());
     }
 
-    public void writeFullXml(StringBuilder xml) {
-        xml.append(fullXml());
-    }
-
     public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("orders")
@@ -28,10 +24,6 @@ public class Account {
                         .map(Order::fullXml)
                         .toList())
                 .build();
-    }
-
-    public void writeTaxDetailsXml(StringBuilder xml) {
-        xml.append(taxDetailsXml());
     }
 
     public XmlTag taxDetailsXml() {
@@ -43,10 +35,6 @@ public class Account {
                         .toList())
                 .withValue(formatter.format(getTaxInDollars()))
                 .build();
-    }
-
-    public void writeHistoryXml(StringBuilder xml, Date dateOfCreation) {
-        xml.append(historyXml(dateOfCreation));
     }
 
     public XmlTag historyXml(Date dateOfCreation) {
