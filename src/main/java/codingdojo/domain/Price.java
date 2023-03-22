@@ -4,12 +4,15 @@ import codingdojo.xml.*;
 
 public record Price(double amount, Currency currency) {
     public void writeFullXml(StringBuilder xml) {
-        var tag = XmlTag.builder()
+        xml.append(fullXml().toString());
+    }
+
+    public XmlTag fullXml() {
+        return XmlTag.builder()
                 .withName("price")
                 .withParameter(XmlParameter.of("currency", currency.toString()))
                 .withValue(String.valueOf(amount))
                 .build();
-        xml.append(tag.toString());
     }
 
     public double getAmountInCurrency(Currency currency) {
