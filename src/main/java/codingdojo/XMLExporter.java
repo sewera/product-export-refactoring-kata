@@ -33,15 +33,23 @@ public class XMLExporter {
     }
 
     @SuppressWarnings("unused") // public interface
-    public static String exportHistory(Collection<Order> orders) {
+    public static String exportHistory(Account account) {
         var now = new Date();
-        return exportHistory(orders, now);
+        return exportHistory(account, now);
+    }
+
+    @SuppressWarnings("unused") // public interface
+    public static String exportHistory(Collection<Order> orders) {
+        return exportHistory(Account.of(orders));
     }
 
     static String exportHistory(Collection<Order> orders, Date dateOfCreation) {
+        return exportHistory(Account.of(orders), dateOfCreation);
+    }
+
+    static String exportHistory(Account account, Date dateOfCreation) {
         var xml = new StringBuilder();
         writeXmlHeader(xml);
-        var account = Account.of(orders);
         account.writeHistoryXml(xml, dateOfCreation);
         return xml.toString();
     }
