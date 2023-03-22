@@ -25,14 +25,14 @@ public final class Dataset {
         return store;
     }
 
-    public List<Order> exampleOrderListWithStoreEvent() {
+    public Account exampleAccountWithStoreEvent() {
         var order = Orders.builder()
                 .withPrice(149.99)
                 .withEvent(true)
                 .withDate(DATE_AFTER_TAX_CHANGE)
                 .build()
                 .createOrder();
-        return List.of(order);
+        return Account.of(List.of(order));
     }
 
     public List<Order> exampleOrderListWithRegularProduct() {

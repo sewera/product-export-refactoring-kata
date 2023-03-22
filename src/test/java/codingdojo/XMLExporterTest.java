@@ -14,7 +14,7 @@ class XMLExporterTest {
     @Test
     void testFullExport() {
         // given
-        var orders = data.exampleOrderListWithStoreEvent();
+        var orders = data.exampleAccountWithStoreEvent();
         var expected = data.allOrdersReference();
 
         // when
@@ -27,7 +27,7 @@ class XMLExporterTest {
     @Test
     void testTaxDetailsExportForStoreEvent() {
         // given
-        var orders = data.exampleOrderListWithStoreEvent();
+        var orders = data.exampleAccountWithStoreEvent();
         var expected = data.taxDetailsWithStoreEventReference();
 
         // when
@@ -79,12 +79,12 @@ class XMLExporterTest {
     @Test
     void testHistoryExport() {
         // given
-        var orders = data.exampleOrderListWithStoreEvent();
+        var account = data.exampleAccountWithStoreEvent();
         var date = DateUtil.fromIsoDate("2023-03-31T12:35Z");
         var expected = data.historyReference();
 
         // when
-        var actual = XMLExporter.exportHistory(orders, date);
+        var actual = XMLExporter.exportHistory(account, date);
 
         // then
         assertXml(actual, expected);

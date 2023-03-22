@@ -43,10 +43,6 @@ public class XMLExporter {
         return exportHistory(Account.of(orders));
     }
 
-    static String exportHistory(Collection<Order> orders, Date dateOfCreation) {
-        return exportHistory(Account.of(orders), dateOfCreation);
-    }
-
     static String exportHistory(Account account, Date dateOfCreation) {
         var xml = new StringBuilder();
         writeXmlHeader(xml);
