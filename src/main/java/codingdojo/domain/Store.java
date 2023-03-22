@@ -1,5 +1,6 @@
 package codingdojo.domain;
 
+import codingdojo.xml.*;
 import lombok.*;
 
 import java.util.*;
@@ -22,13 +23,17 @@ public class Store {
     }
 
     public void writeStockXml(StringBuilder xml) {
-        xml.append("<store");
-        xml.append(" name='");
-        xml.append(name);
-        xml.append("'");
-        xml.append(">");
-        itemsInStock.forEach(product -> product.writeStockXml(xml));
-        xml.append("</store>");
+        xml.append(stockXml());
+    }
+
+    private XmlTag stockXml() {
+        return XmlTag.builder()
+                .withName("store")
+                .withParameter(XmlParameter.of("name", name))
+                .withChildren(itemsInStock.stream()
+                        .map(Product::stockXml)
+                        .toList())
+                .build();
     }
 
     public void addStockedItems(Product... items) {
