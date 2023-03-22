@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.*;
 
+import static codingdojo.domain.Money.Currency.USD;
 import static lombok.AccessLevel.PRIVATE;
 
 @AllArgsConstructor(access = PRIVATE)
@@ -31,7 +32,7 @@ public class Account {
                 .withChildren(orders.stream()
                         .map(Order::taxDetailsXml)
                         .toList())
-                .withValue(getTax().plainAmount())
+                .withValue(getTax().plainAmountInCurrency(USD))
                 .build();
     }
 
@@ -47,7 +48,7 @@ public class Account {
 
     Money getTax() {
         return orders.stream()
-                .map(Order::taxInDollars)
+                .map(Order::tax)
                 .reduce(Money::sum)
                 .orElse(Money.dollars(0));
     }

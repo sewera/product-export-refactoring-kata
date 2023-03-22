@@ -3,7 +3,6 @@ package codingdojo.domain;
 import codingdojo.xml.*;
 import lombok.*;
 
-import static codingdojo.domain.Money.Currency.USD;
 import static lombok.AccessLevel.PROTECTED;
 
 @AllArgsConstructor(access = PROTECTED)
@@ -33,8 +32,8 @@ public abstract class Product {
 
     protected abstract double taxRate();
 
-    double taxInDollars() {
-        return price.getAmountInCurrency(USD) * taxRate();
+    Money tax() {
+        return price.timesRate(taxRate());
     }
 
     @SuppressWarnings("unused")

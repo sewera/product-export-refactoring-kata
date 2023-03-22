@@ -9,13 +9,13 @@ public record Money(double amount, Currency currency) {
         return XmlTag.builder()
                 .withName(tagName)
                 .withParameter(XmlParameter.of("currency", currency.toString()))
-                .withValue(plainAmount())
+                .withValue(plainAmountInCurrency(currency))
                 .build();
     }
 
-    public String plainAmount() {
+    public String plainAmountInCurrency(Currency currency) {
         var formatter = new DecimalFormat("#0.00");
-        return formatter.format(amount);
+        return formatter.format(getAmountInCurrency(currency));
     }
 
     public static Money dollars(double amount) {
