@@ -18,7 +18,7 @@ public class Product {
         xml.append(fullXml());
     }
 
-    private XmlTag fullXml() {
+    public XmlTag fullXml() {
         return XmlTag.builder()
                 .withName("product")
                 .withParameter(XmlParameter.of("id", id))
