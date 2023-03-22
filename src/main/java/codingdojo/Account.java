@@ -5,7 +5,9 @@ import lombok.*;
 import java.text.*;
 import java.util.*;
 
-@AllArgsConstructor
+import static lombok.AccessLevel.PRIVATE;
+
+@AllArgsConstructor(access = PRIVATE)
 public class Account {
     private final List<Order> orders;
 
@@ -15,17 +17,14 @@ public class Account {
 
     public void writeFullXml(StringBuilder xml) {
         xml.append("<orders>");
-        for (var order : orders)
-            order.writeFullXml(xml);
+        orders.forEach(order -> order.writeFullXml(xml));
         xml.append("</orders>");
     }
 
     public void writeTaxDetailsXml(StringBuilder xml) {
         var formatter = new DecimalFormat("#0.00");
         xml.append("<orderTax>");
-        for (var order : orders)
-            order.writeTaxDetailsXml(xml);
-
+        orders.forEach(order -> order.writeTaxDetailsXml(xml));
         var totalTax = getTaxInDollars();
         xml.append(formatter.format(totalTax));
         xml.append("</orderTax>");
@@ -37,8 +36,7 @@ public class Account {
         xml.append(DateUtil.toIsoDate(dateOfCreation));
         xml.append("'");
         xml.append(">");
-        for (var order : orders)
-            order.writeHistoryXml(xml);
+        orders.forEach(order -> order.writeHistoryXml(xml));
         xml.append("</orderHistory>");
     }
 

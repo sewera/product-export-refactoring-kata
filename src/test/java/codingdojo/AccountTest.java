@@ -37,7 +37,7 @@ class AccountTest {
                 .createOrder();
         var orders = List.of(regularProductBeforeTaxChange,
                 regularProductAfterTaxChange, storeEventBeforeTaxChange, storeEventAfterTaxChange);
-        var ledger = new Account(orders);
+        var ledger = Account.of(orders);
 
         var expected = 337.5;
 
@@ -51,7 +51,7 @@ class AccountTest {
     @Test
     void testTax_NoOrders() {
         // given
-        var ledger = new Account(emptyList());
+        var ledger = Account.of(emptyList());
         var expected = 0.0;
 
         // when
