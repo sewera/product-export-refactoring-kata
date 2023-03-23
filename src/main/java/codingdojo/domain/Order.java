@@ -59,7 +59,7 @@ public final class Order {
 
     private Money totalPrice() {
         return products.stream()
-                .map(Product::getPrice)
+                .map(Product::price)
                 .reduce(Money::sum)
                 .orElse(Money.dollars(0));
     }

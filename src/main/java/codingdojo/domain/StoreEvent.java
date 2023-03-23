@@ -25,7 +25,7 @@ public class StoreEvent extends Product {
     @Override
     public XmlTag stockXml() {
         return xmlWithPrice().toBuilder()
-                .withParameter(XmlParameter.of("location", location.getName()))
+                .withParameter(XmlParameter.of("location", location.name()))
                 .build();
     }
 
