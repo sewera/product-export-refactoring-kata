@@ -1,5 +1,12 @@
 # Product export refactoring kata
 
+Check out the [resources](https://www.sewera.dev/rtp) for this kata.
+
+The main book for this kata is [Joshua Kerievsky's "Refactoring to Patterns"](https://www.google.com/books/edition/Refactoring_to_Patterns/Oxm8R1dY3RwC).
+
+This kata is based on Emily Bache's version:
+[emilybache/Product-Export-Refactoring-Kata](https://github.com/emilybache/Product-Export-Refactoring-Kata).
+
 ## Tags
 
 1. [t-initial-setup]
